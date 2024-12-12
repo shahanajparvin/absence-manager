@@ -1,9 +1,10 @@
+import 'package:absence_manager/core/flavor/flavor_config.dart';
 import 'package:absence_manager/core/utils/core_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() {
+Future<void> mainCommon(FlavorConfig config) async {
   runApp(const MyApp());
 }
 

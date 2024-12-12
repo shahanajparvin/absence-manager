@@ -50,6 +50,24 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
         }
+
+    }
+    flavorDimensions "app"
+    productFlavors {
+        staging {
+            dimension "app"
+            applicationIdSuffix '.staging'
+            manifestPlaceholders = [appName: "[STG] AbsenceManager"]
+        }
+        production {
+            dimension "app"
+            manifestPlaceholders = [appName: "AbsenceManager"]
+        }
+        development {
+            dimension "app"
+            applicationIdSuffix ".dev"
+            manifestPlaceholders = [appName: "[DEV] AbsenceManager"]
+        }
     }
 }
 
