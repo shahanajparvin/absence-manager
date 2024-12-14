@@ -4,5 +4,5 @@
 
 abstract class AbsenceEvent {}
 
-class GetAbsencesEvent extends AbsenceEvent {}
+class GetAbsencesWithMembersEvent extends AbsenceEvent {}
 
