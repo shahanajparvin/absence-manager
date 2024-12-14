@@ -36,7 +36,7 @@ class AbsenceManagerRepositoryImpl extends AbsenceManagerRepository {
   @override
   Future<ApiResponse<List<Member>>> getMembers() async {
     return ApiExceptionHandlingService().handleApiCall(() async {
-      final List<dynamic>? data = await absences();
+      final List<dynamic>? data = await members();
       if (data != null && data.isNotEmpty) {
         final List<Member> members = data.map((json) {
           return Member.fromJson(json as Map<String, dynamic>);
