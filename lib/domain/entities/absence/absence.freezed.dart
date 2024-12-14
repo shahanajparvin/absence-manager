@@ -20,17 +20,17 @@ Absence _$AbsenceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Absence {
-  String? get admitterId => throw _privateConstructorUsedError;
-  String get admitterNote => throw _privateConstructorUsedError;
-  String get confirmedAt => throw _privateConstructorUsedError;
-  String get createdAt => throw _privateConstructorUsedError;
+  int? get admitterId => throw _privateConstructorUsedError;
+  String? get admitterNote => throw _privateConstructorUsedError;
+  String? get confirmedAt => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
   int get crewId => throw _privateConstructorUsedError;
-  String get endDate => throw _privateConstructorUsedError;
+  String? get endDate => throw _privateConstructorUsedError;
   int get id => throw _privateConstructorUsedError;
-  String get memberNote => throw _privateConstructorUsedError;
+  String? get memberNote => throw _privateConstructorUsedError;
   String? get rejectedAt => throw _privateConstructorUsedError;
-  String get startDate => throw _privateConstructorUsedError;
-  String get type => throw _privateConstructorUsedError;
+  String? get startDate => throw _privateConstructorUsedError;
+  String? get type => throw _privateConstructorUsedError;
   int get userId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,17 +44,17 @@ abstract class $AbsenceCopyWith<$Res> {
       _$AbsenceCopyWithImpl<$Res, Absence>;
   @useResult
   $Res call(
-      {String? admitterId,
-      String admitterNote,
-      String confirmedAt,
-      String createdAt,
+      {int? admitterId,
+      String? admitterNote,
+      String? confirmedAt,
+      String? createdAt,
       int crewId,
-      String endDate,
+      String? endDate,
       int id,
-      String memberNote,
+      String? memberNote,
       String? rejectedAt,
-      String startDate,
-      String type,
+      String? startDate,
+      String? type,
       int userId});
 }
 
@@ -72,63 +72,63 @@ class _$AbsenceCopyWithImpl<$Res, $Val extends Absence>
   @override
   $Res call({
     Object? admitterId = freezed,
-    Object? admitterNote = null,
-    Object? confirmedAt = null,
-    Object? createdAt = null,
+    Object? admitterNote = freezed,
+    Object? confirmedAt = freezed,
+    Object? createdAt = freezed,
     Object? crewId = null,
-    Object? endDate = null,
+    Object? endDate = freezed,
     Object? id = null,
-    Object? memberNote = null,
+    Object? memberNote = freezed,
     Object? rejectedAt = freezed,
-    Object? startDate = null,
-    Object? type = null,
+    Object? startDate = freezed,
+    Object? type = freezed,
     Object? userId = null,
   }) {
     return _then(_value.copyWith(
       admitterId: freezed == admitterId
           ? _value.admitterId
           : admitterId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      admitterNote: null == admitterNote
+              as int?,
+      admitterNote: freezed == admitterNote
           ? _value.admitterNote
           : admitterNote // ignore: cast_nullable_to_non_nullable
-              as String,
-      confirmedAt: null == confirmedAt
+              as String?,
+      confirmedAt: freezed == confirmedAt
           ? _value.confirmedAt
           : confirmedAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
+              as String?,
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       crewId: null == crewId
           ? _value.crewId
           : crewId // ignore: cast_nullable_to_non_nullable
               as int,
-      endDate: null == endDate
+      endDate: freezed == endDate
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      memberNote: null == memberNote
+      memberNote: freezed == memberNote
           ? _value.memberNote
           : memberNote // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       rejectedAt: freezed == rejectedAt
           ? _value.rejectedAt
           : rejectedAt // ignore: cast_nullable_to_non_nullable
               as String?,
-      startDate: null == startDate
+      startDate: freezed == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
+              as String?,
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -145,17 +145,17 @@ abstract class _$$AbsenceImplCopyWith<$Res> implements $AbsenceCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? admitterId,
-      String admitterNote,
-      String confirmedAt,
-      String createdAt,
+      {int? admitterId,
+      String? admitterNote,
+      String? confirmedAt,
+      String? createdAt,
       int crewId,
-      String endDate,
+      String? endDate,
       int id,
-      String memberNote,
+      String? memberNote,
       String? rejectedAt,
-      String startDate,
-      String type,
+      String? startDate,
+      String? type,
       int userId});
 }
 
@@ -171,63 +171,63 @@ class __$$AbsenceImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? admitterId = freezed,
-    Object? admitterNote = null,
-    Object? confirmedAt = null,
-    Object? createdAt = null,
+    Object? admitterNote = freezed,
+    Object? confirmedAt = freezed,
+    Object? createdAt = freezed,
     Object? crewId = null,
-    Object? endDate = null,
+    Object? endDate = freezed,
     Object? id = null,
-    Object? memberNote = null,
+    Object? memberNote = freezed,
     Object? rejectedAt = freezed,
-    Object? startDate = null,
-    Object? type = null,
+    Object? startDate = freezed,
+    Object? type = freezed,
     Object? userId = null,
   }) {
     return _then(_$AbsenceImpl(
       admitterId: freezed == admitterId
           ? _value.admitterId
           : admitterId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      admitterNote: null == admitterNote
+              as int?,
+      admitterNote: freezed == admitterNote
           ? _value.admitterNote
           : admitterNote // ignore: cast_nullable_to_non_nullable
-              as String,
-      confirmedAt: null == confirmedAt
+              as String?,
+      confirmedAt: freezed == confirmedAt
           ? _value.confirmedAt
           : confirmedAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
+              as String?,
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       crewId: null == crewId
           ? _value.crewId
           : crewId // ignore: cast_nullable_to_non_nullable
               as int,
-      endDate: null == endDate
+      endDate: freezed == endDate
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      memberNote: null == memberNote
+      memberNote: freezed == memberNote
           ? _value.memberNote
           : memberNote // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       rejectedAt: freezed == rejectedAt
           ? _value.rejectedAt
           : rejectedAt // ignore: cast_nullable_to_non_nullable
               as String?,
-      startDate: null == startDate
+      startDate: freezed == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
+              as String?,
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -257,27 +257,27 @@ class _$AbsenceImpl implements _Absence {
       _$$AbsenceImplFromJson(json);
 
   @override
-  final String? admitterId;
+  final int? admitterId;
   @override
-  final String admitterNote;
+  final String? admitterNote;
   @override
-  final String confirmedAt;
+  final String? confirmedAt;
   @override
-  final String createdAt;
+  final String? createdAt;
   @override
   final int crewId;
   @override
-  final String endDate;
+  final String? endDate;
   @override
   final int id;
   @override
-  final String memberNote;
+  final String? memberNote;
   @override
   final String? rejectedAt;
   @override
-  final String startDate;
+  final String? startDate;
   @override
-  final String type;
+  final String? type;
   @override
   final int userId;
 
@@ -345,43 +345,43 @@ class _$AbsenceImpl implements _Absence {
 
 abstract class _Absence implements Absence {
   factory _Absence(
-      {final String? admitterId,
-      required final String admitterNote,
-      required final String confirmedAt,
-      required final String createdAt,
+      {final int? admitterId,
+      required final String? admitterNote,
+      required final String? confirmedAt,
+      required final String? createdAt,
       required final int crewId,
-      required final String endDate,
+      required final String? endDate,
       required final int id,
-      required final String memberNote,
+      required final String? memberNote,
       final String? rejectedAt,
-      required final String startDate,
-      required final String type,
+      required final String? startDate,
+      required final String? type,
       required final int userId}) = _$AbsenceImpl;
 
   factory _Absence.fromJson(Map<String, dynamic> json) = _$AbsenceImpl.fromJson;
 
   @override
-  String? get admitterId;
+  int? get admitterId;
   @override
-  String get admitterNote;
+  String? get admitterNote;
   @override
-  String get confirmedAt;
+  String? get confirmedAt;
   @override
-  String get createdAt;
+  String? get createdAt;
   @override
   int get crewId;
   @override
-  String get endDate;
+  String? get endDate;
   @override
   int get id;
   @override
-  String get memberNote;
+  String? get memberNote;
   @override
   String? get rejectedAt;
   @override
-  String get startDate;
+  String? get startDate;
   @override
-  String get type;
+  String? get type;
   @override
   int get userId;
   @override

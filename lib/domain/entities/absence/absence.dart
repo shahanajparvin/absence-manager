@@ -6,17 +6,17 @@ part 'absence.g.dart';
 @freezed
 class Absence with _$Absence {
   factory Absence({
-     String? admitterId,
-     required String admitterNote,
-     required String confirmedAt,
-     required String createdAt,
+     int? admitterId,
+     required String? admitterNote,
+     required String? confirmedAt,
+     required String? createdAt,
      required int crewId,
-     required String endDate,
+     required String? endDate,
      required int id,
-     required String memberNote,
+     required String? memberNote,
      String? rejectedAt,
-     required String startDate,
-     required String type,
+     required String? startDate,
+     required String? type,
      required int userId,
   }) = _Absence;
 

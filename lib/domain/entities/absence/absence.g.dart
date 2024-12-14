@@ -8,17 +8,17 @@ part of 'absence.dart';
 
 _$AbsenceImpl _$$AbsenceImplFromJson(Map<String, dynamic> json) =>
     _$AbsenceImpl(
-      admitterId: json['admitterId'] as String?,
-      admitterNote: json['admitterNote'] as String,
-      confirmedAt: json['confirmedAt'] as String,
-      createdAt: json['createdAt'] as String,
+      admitterId: (json['admitterId'] as num?)?.toInt(),
+      admitterNote: json['admitterNote'] as String?,
+      confirmedAt: json['confirmedAt'] as String?,
+      createdAt: json['createdAt'] as String?,
       crewId: (json['crewId'] as num).toInt(),
-      endDate: json['endDate'] as String,
+      endDate: json['endDate'] as String?,
       id: (json['id'] as num).toInt(),
-      memberNote: json['memberNote'] as String,
+      memberNote: json['memberNote'] as String?,
       rejectedAt: json['rejectedAt'] as String?,
-      startDate: json['startDate'] as String,
-      type: json['type'] as String,
+      startDate: json['startDate'] as String?,
+      type: json['type'] as String?,
       userId: (json['userId'] as num).toInt(),
     );
 
