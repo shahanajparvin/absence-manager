@@ -90,6 +90,11 @@ To Generate Translation:
 ```bash
 flutter gen-l10n
 ```
+To Generate:
+
+```bash
+dart run build_runner build
+```
 
 ##  Author
 

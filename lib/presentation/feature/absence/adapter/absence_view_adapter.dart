@@ -10,11 +10,11 @@ class AbsenceAdapter {
 
   List<AbsenceView> adapt() {
 
-    final memberMap = {for (var member in members) member.crewId: member.name};
+    final memberMap = {for (var member in members) member.userId: member.name};
 
 
     return absences.map((absence) {
-      final employeeName = memberMap[absence.crewId] ?? "Unknown";
+      final employeeName = memberMap[absence.userId] ?? "Unknown";
       final status = absence.confirmedAt != null
           ? "Confirmed"
           : absence.rejectedAt != null

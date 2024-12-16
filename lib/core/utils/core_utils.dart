@@ -7,6 +7,10 @@ extension LocalizationExtension on BuildContext {
 }
 
 
-
-
+class AppUtils {
+  /// Adds a delay for the given duration.
+  static Future<void> delay(Duration duration) async {
+    await Future.delayed(duration);
+  }
+}
 

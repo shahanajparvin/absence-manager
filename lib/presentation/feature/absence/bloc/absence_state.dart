@@ -9,8 +9,9 @@ class AbsenceLoadingState extends AbsenceState {}
 
 class AbsenceSuccessState extends AbsenceState {
   final List<AbsenceView> absences;
+  final bool hasMorePages;
 
-  AbsenceSuccessState(this.absences);
+  AbsenceSuccessState(this.absences, {this.hasMorePages = false});
 }
 
 class AbsenceErrorState extends AbsenceState {
