@@ -6,9 +6,9 @@ abstract class AbsenceEvent {}
 
 class GetAbsencesWithMembersEvent extends AbsenceEvent {}
 
-class LoadPageEvent extends AbsenceEvent {
+class FetchPaginatedAbsenceEvent extends AbsenceEvent {
   final int itemsPerPage;
 
-  LoadPageEvent(this.itemsPerPage);
+  FetchPaginatedAbsenceEvent(this.itemsPerPage);
 }
 

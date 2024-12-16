@@ -24,7 +24,7 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<AbsenceBloc>(context).add(LoadPageEvent(_itemsPerPage));
+    BlocProvider.of<AbsenceBloc>(context).add(FetchPaginatedAbsenceEvent(_itemsPerPage));
   }
 
   // Trigger loading the next page when user scrolls to the bottom
@@ -34,7 +34,7 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       if (context.read<AbsenceBloc>().state is AbsenceSuccessState &&
           (context.read<AbsenceBloc>().state as AbsenceSuccessState).hasMorePages) {
-        BlocProvider.of<AbsenceBloc>(context).add(LoadPageEvent(_itemsPerPage));
+        BlocProvider.of<AbsenceBloc>(context).add(FetchPaginatedAbsenceEvent(_itemsPerPage));
       }
     }
   }

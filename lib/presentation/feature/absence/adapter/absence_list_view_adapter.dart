@@ -26,7 +26,7 @@ class AbsenceListViewAdapter {
         type: absence.type!=null?absence.type!:'not defined',
         startDate: absence.startDate!,
         endDate: absence.endDate!,
-        status: status, employeeProfile: '',
+        status: status
       );
     }).toList();
   }

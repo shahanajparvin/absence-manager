@@ -25,7 +25,7 @@ class AbsenceBloc extends Bloc<AbsenceEvent, AbsenceState> {
 
   AbsenceBloc(this._getAbsencesUseCase, this._getMembersUseCase) : super(AbsenceInitial()) {
     on<GetAbsencesWithMembersEvent>(onFetchAbsences);
-    on<LoadPageEvent>(onFetchPaginatedAbsences);
+    on<FetchPaginatedAbsenceEvent>(onFetchPaginatedAbsences);
   }
 
   Future<void> onFetchAbsences(
@@ -57,7 +57,9 @@ class AbsenceBloc extends Bloc<AbsenceEvent, AbsenceState> {
 
 
 
-  Future<void> onFetchPaginatedAbsences(LoadPageEvent event, Emitter<AbsenceState> emit) async {
+
+
+  Future<void> onFetchPaginatedAbsences(FetchPaginatedAbsenceEvent event, Emitter<AbsenceState> emit) async {
     try {
       final List<ApiResponse<List<Object>>> responses = await Future.wait(<Future<ApiResponse<List<Object>>>>[
         _getAbsencesUseCase.execute(),
@@ -114,6 +116,8 @@ class AbsenceBloc extends Bloc<AbsenceEvent, AbsenceState> {
       emit(AbsenceErrorState('An unexpected error occurred'));
     }
   }
+
+
 
 
 
