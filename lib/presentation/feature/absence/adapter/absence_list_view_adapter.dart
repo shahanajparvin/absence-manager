@@ -9,25 +9,37 @@ class AbsenceListViewAdapter {
   AbsenceListViewAdapter({required this.absences, required this.members});
 
   List<AbsenceListView> adapt() {
-
-    final memberMap = {for (var member in members) member.userId: member.name};
-
-
-    return absences.map((absence) {
-      final employeeName = memberMap[absence.userId] ?? "Unknown";
-      final status = absence.confirmedAt != null
-          ? "Confirmed"
-          : absence.rejectedAt != null
-          ? "Rejected"
-          : "Pending";
-
+    final Map<int, String> memberMap  = _createMemberMap();
+    return absences.map((Absence absence) {
       return AbsenceListView(
-        employeeName: employeeName,
-        type: absence.type!=null?absence.type!:'not defined',
+        employeeName: _getEmployeeName(memberMap, absence.userId),
+        type: absence.type!=null?absence.type!:'Not defined',
         startDate: absence.startDate!,
         endDate: absence.endDate!,
-        status: status
+        status: _getAbsenceStatus(absence)
       );
     }).toList();
   }
+
+  Map<int, String> _createMemberMap(){
+    final Map<int, String> memberMap = {for (final Member member in members) member.userId: member.name};
+    return memberMap;
+  }
+
+
+  String _getEmployeeName( Map<int, String> memberMap, int userId){
+    final String employeeName = memberMap[userId] ?? "Unknown";
+    return employeeName;
+  }
+
+  String _getAbsenceStatus(Absence absence) {
+    if (absence.confirmedAt != null) {
+      return "Confirmed";
+    } else if (absence.rejectedAt != null) {
+      return "Rejected";
+    } else {
+      return "Pending";
+    }
+  }
+
 }
