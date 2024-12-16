@@ -1,12 +1,12 @@
 import 'package:absence_manager/core/utils/core_utils.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_bloc.dart';
-import 'package:absence_manager/presentation/feature/absence/model/absence_view.dart';
+import 'package:absence_manager/presentation/feature/absence/model/absence_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_bloc.dart';
-import 'package:absence_manager/presentation/feature/absence/model/absence_view.dart';
+import 'package:absence_manager/presentation/feature/absence/model/absence_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -61,7 +61,7 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
                 if (index == state.absences.length) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                final AbsenceView absence = state.absences[index];
+                final AbsenceListView absence = state.absences[index];
                 return ListTile(
                   title: Text(absence.employeeName),
                   subtitle: Text('Status: ${absence.status}'),

@@ -3,10 +3,10 @@ import 'package:absence_manager/domain/entities/absence/absence.dart';
 import 'package:absence_manager/domain/entities/member/member.dart';
 import 'package:absence_manager/domain/usecases/get_absences_usecase.dart';
 import 'package:absence_manager/domain/usecases/get_members_usecase.dart';
-import 'package:absence_manager/presentation/feature/absence/adapter/absence_view_adapter.dart';
+import 'package:absence_manager/presentation/feature/absence/adapter/absence_list_view_adapter.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_event.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_state.dart';
-import 'package:absence_manager/presentation/feature/absence/model/absence_view.dart';
+import 'package:absence_manager/presentation/feature/absence/model/absence_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -44,7 +44,7 @@ class AbsenceBloc extends Bloc<AbsenceEvent, AbsenceState> {
       final ApiResponse<List<Member>> members = responses[1] as ApiResponse<List<Member>>;
 
       if (absences is SuccessResponse<List<Absence>> && members is SuccessResponse<List<Member>>) {
-        final List<AbsenceView> list = await _adaptAbsencesData(absences.data!, members.data!);
+        final List<AbsenceListView> list = await _adaptAbsencesData(absences.data!, members.data!);
         emit(AbsenceSuccessState(list));
       } else {
         final String errorMessage = _getErrorMessage(absences, members);
@@ -86,7 +86,7 @@ class AbsenceBloc extends Bloc<AbsenceEvent, AbsenceState> {
             startIndex, endIndex > absences.data!.length ? absences.data!.length : endIndex);
 
 
-        final List<AbsenceView> list = await _adaptAbsencesData(paginatedAbsences, members.data!);
+        final List<AbsenceListView> list = await _adaptAbsencesData(paginatedAbsences, members.data!);
 
 
 
@@ -94,12 +94,12 @@ class AbsenceBloc extends Bloc<AbsenceEvent, AbsenceState> {
 
         debugPrint('hasMorePages $hasMorePages');
 
-        List<AbsenceView> previousAbsences = [];
+        List<AbsenceListView> previousAbsences = [];
 
         if(state is AbsenceSuccessState){
           previousAbsences = (state as AbsenceSuccessState).absences;
         }
-        final List<AbsenceView> totalAbsences = previousAbsences + list;
+        final List<AbsenceListView> totalAbsences = previousAbsences + list;
         emit(AbsenceSuccessState(
           totalAbsences, // Add the new data to the existing list
           hasMorePages: hasMorePages,
@@ -118,11 +118,11 @@ class AbsenceBloc extends Bloc<AbsenceEvent, AbsenceState> {
 
 
 
-  Future<List<AbsenceView>> _adaptAbsencesData(
+  Future<List<AbsenceListView>> _adaptAbsencesData(
       List<Absence> absences,
       List<Member> members) async {
 
-    final AbsenceAdapter adapter = AbsenceAdapter(
+    final AbsenceListViewAdapter adapter = AbsenceListViewAdapter(
       absences: absences,
       members: members,
     );

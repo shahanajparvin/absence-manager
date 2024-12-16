@@ -1,4 +1,4 @@
-class AbsenceView{
+class AbsenceListView{
   final String employeeName;
   final String employeeProfile;
   final String type;
@@ -6,7 +6,7 @@ class AbsenceView{
   final String endDate;
   final String status;
 
-  AbsenceView({
+  AbsenceListView({
     required this.employeeName,
     required this.employeeProfile,
     required this.type,

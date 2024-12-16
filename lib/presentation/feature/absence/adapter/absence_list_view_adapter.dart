@@ -1,14 +1,14 @@
 import 'package:absence_manager/domain/entities/absence/absence.dart';
 import 'package:absence_manager/domain/entities/member/member.dart';
-import 'package:absence_manager/presentation/feature/absence/model/absence_view.dart';
+import 'package:absence_manager/presentation/feature/absence/model/absence_list_view.dart';
 
-class AbsenceAdapter {
+class AbsenceListViewAdapter {
   final List<Absence> absences;
   final List<Member> members;
 
-  AbsenceAdapter({required this.absences, required this.members});
+  AbsenceListViewAdapter({required this.absences, required this.members});
 
-  List<AbsenceView> adapt() {
+  List<AbsenceListView> adapt() {
 
     final memberMap = {for (var member in members) member.userId: member.name};
 
@@ -21,7 +21,7 @@ class AbsenceAdapter {
           ? "Rejected"
           : "Pending";
 
-      return AbsenceView(
+      return AbsenceListView(
         employeeName: employeeName,
         type: absence.type!=null?absence.type!:'not defined',
         startDate: absence.startDate!,
