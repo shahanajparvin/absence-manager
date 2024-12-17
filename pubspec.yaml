@@ -41,6 +41,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   api:
     path: api
+  go_router: ^14.2.5
 
 
 

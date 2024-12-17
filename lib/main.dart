@@ -1,6 +1,6 @@
 import 'package:absence_manager/core/di/injector.dart';
 import 'package:absence_manager/core/flavor/flavor_config.dart';
-import 'package:absence_manager/presentation/feature/absence/ui/pages/absence_page.dart';
+import 'package:absence_manager/core/route/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
         useMaterial3: true,
       ),
-      home: const AbsencePage(),
+        routerConfig: router
     );
   }
 }
