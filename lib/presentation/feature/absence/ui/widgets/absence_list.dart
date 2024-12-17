@@ -1,14 +1,13 @@
 import 'package:absence_manager/core/utils/core_utils.dart';
-import 'package:absence_manager/presentation/feature/absence/bloc/absence_bloc.dart';
+import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_bloc.dart';
+import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_event.dart';
+import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_state.dart';
 import 'package:absence_manager/presentation/feature/absence/model/absence_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
-import 'package:absence_manager/presentation/feature/absence/bloc/absence_bloc.dart';
-import 'package:absence_manager/presentation/feature/absence/model/absence_list_view.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 class AbsenceListWidget extends StatefulWidget {
   @override
@@ -19,30 +18,30 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
 
   final int _itemsPerPage = 15;
 
-  final scrollController = ScrollController();
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<AbsenceBloc>(context).add(FetchPaginatedAbsenceEvent(_itemsPerPage));
+    BlocProvider.of<AbsenceListBloc>(context).add(FetchPaginatedAbsenceEvent(_itemsPerPage));
   }
 
-  // Trigger loading the next page when user scrolls to the bottom
-  Future<void> _onScroll() async {
+
+  Future<void> _onScroll(BuildContext context) async {
     await AppUtils.delay(Duration(seconds: 2));
 
-    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
-      if (context.read<AbsenceBloc>().state is AbsenceSuccessState &&
-          (context.read<AbsenceBloc>().state as AbsenceSuccessState).hasMorePages) {
-        BlocProvider.of<AbsenceBloc>(context).add(FetchPaginatedAbsenceEvent(_itemsPerPage));
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent&&context.mounted) {
+      if (context.read<AbsenceListBloc>().state is AbsenceSuccessState &&
+          (context.read<AbsenceListBloc>().state as AbsenceSuccessState).hasMorePages) {
+        BlocProvider.of<AbsenceListBloc>(context).add(FetchPaginatedAbsenceEvent(_itemsPerPage));
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AbsenceBloc, AbsenceState>(
-      builder: (BuildContext context, AbsenceState state) {
+    return BlocBuilder<AbsenceListBloc, AbsenceListState>(
+      builder: (BuildContext context, AbsenceListState state) {
         if (state is AbsenceLoadingState) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is AbsenceSuccessState) {
@@ -50,7 +49,7 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
             onNotification: (ScrollNotification scrollInfo)  {
               if (scrollInfo is ScrollEndNotification) {
 
-                _onScroll();
+                _onScroll(context);
               }
               return false;
             },
@@ -74,7 +73,7 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
             child: Text('Error: ${state.errorMessage}', style: const TextStyle(color: Colors.red)),
           );
         } else {
-          return const Center(child: Text('No absences found.'));
+          return const Center(child: Text('No absences list found.'));
         }
       },
     );
