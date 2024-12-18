@@ -20,5 +20,9 @@ class AppColor {
 
   static const Color darkGreyColor = Color(0xffD0D0D0);
 
+  static const Color greyBgColor = Color(0xffF9F9F9);
+
+  static const Color errorColor = Color(0xffEE163D);
+
 
 }
