@@ -14,7 +14,10 @@ import 'package:injectable/injectable.dart' as _i526;
 import '../../domain/repository/absence_manager_repository.dart' as _i702;
 import '../../domain/usecases/get_absences_usecase.dart' as _i237;
 import '../../domain/usecases/get_members_usecase.dart' as _i627;
-import '../../presentation/feature/absence/bloc/absence_bloc.dart' as _i1038;
+import '../../presentation/feature/absence/bloc/absence_detail/absence_detail_bloc.dart'
+    as _i775;
+import '../../presentation/feature/absence/bloc/absence_list/absence_list_bloc.dart'
+    as _i286;
 import '../data/repository/absence_manager_repository_impl.dart' as _i1070;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -34,8 +37,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i237.GetAbsencesUseCase(gh<_i702.AbsenceManagerRepository>()));
     gh.factory<_i627.GetMembersUseCase>(
         () => _i627.GetMembersUseCase(gh<_i702.AbsenceManagerRepository>()));
-    gh.factory<_i1038.AbsenceBloc>(() => _i1038.AbsenceBloc(
-          gh<_i1038.GetAbsencesUseCase>(),
+    gh.factory<_i286.AbsenceListBloc>(() => _i286.AbsenceListBloc(
+          gh<_i286.GetAbsencesUseCase>(),
+          gh<_i627.GetMembersUseCase>(),
+        ));
+    gh.factory<_i775.AbsenceDetailBloc>(() => _i775.AbsenceDetailBloc(
+          gh<_i775.GetAbsencesUseCase>(),
           gh<_i627.GetMembersUseCase>(),
         ));
     return this;

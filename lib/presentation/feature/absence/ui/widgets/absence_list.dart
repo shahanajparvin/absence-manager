@@ -1,10 +1,12 @@
+import 'package:absence_manager/core/route/app_route.dart';
 import 'package:absence_manager/core/utils/core_utils.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_bloc.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_event.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_state.dart';
-import 'package:absence_manager/presentation/feature/absence/model/absence_list_view.dart';
+import 'package:absence_manager/presentation/feature/absence/model/absence_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 
 
@@ -56,14 +58,27 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
             child: ListView.builder(
               controller: scrollController,
               itemCount: state.absences.length + (state.hasMorePages ? 1 : 0), // Add 1 for loading indicator at the bottom
-              itemBuilder: (context, index) {
+              itemBuilder: (BuildContext context, int index) {
                 if (index == state.absences.length) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                final AbsenceListView absence = state.absences[index];
+                final AbsenceListModel absence = state.absences[index];
                 return ListTile(
+                  onTap: (){
+                  context.pushNamed(
+                      AppRoutes.absenceDetail.name,
+                      extra: absence.id,
+                    );
+                  },
                   title: Text(absence.employeeName),
-                  subtitle: Text('Status: ${absence.status}'),
+                  subtitle: Column(
+                    mainAxisSize : MainAxisSize.min,
+                    crossAxisAlignment : CrossAxisAlignment.start,
+                    children: [
+                      Text('Status: ${absence.status}'),
+                     Text('Period: ${absence.startDate} - ${absence.endDate}'),
+                    ],
+                  ),
                 );
               },
             ),

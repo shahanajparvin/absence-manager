@@ -5,7 +5,7 @@ import 'package:absence_manager/domain/usecases/get_absences_usecase.dart';
 import 'package:absence_manager/domain/usecases/get_members_usecase.dart';
 import 'package:absence_manager/presentation/feature/absence/adapter/ansence_detail_view_adapter.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_detail/absence_detail_bloc.dart';
-import 'package:absence_manager/presentation/feature/absence/model/absence_detail_view.dart';
+import 'package:absence_manager/presentation/feature/absence/model/absence_detail_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -50,7 +50,7 @@ class AbsenceDetailBloc extends Bloc<AbsenceDetailEvent, AbsenceDetailState> {
 
         if(absence!=null){
           final Member? member = _findMemberById(members.data!, absence.userId);
-          final AbsenceDetailView absenceDetailsView = await _adaptAbsenceDetailData(absence, member!);
+          final AbsenceDetailModel absenceDetailsView = await _adaptAbsenceDetailData(absence, member!);
           emit(AbsenceDetailSuccessState(absenceDetailsView));
         }
 
@@ -78,7 +78,7 @@ class AbsenceDetailBloc extends Bloc<AbsenceDetailEvent, AbsenceDetailState> {
   }
 
 
-  AbsenceDetailView _adaptAbsenceDetailData(
+  AbsenceDetailModel _adaptAbsenceDetailData(
       Absence absence,
       Member member)  {
 

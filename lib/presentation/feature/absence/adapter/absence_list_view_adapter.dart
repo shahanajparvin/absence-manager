@@ -1,6 +1,6 @@
 import 'package:absence_manager/domain/entities/absence/absence.dart';
 import 'package:absence_manager/domain/entities/member/member.dart';
-import 'package:absence_manager/presentation/feature/absence/model/absence_list_view.dart';
+import 'package:absence_manager/presentation/feature/absence/model/absence_list_model.dart';
 
 class AbsenceListViewAdapter {
   final List<Absence> absences;
@@ -8,15 +8,16 @@ class AbsenceListViewAdapter {
 
   AbsenceListViewAdapter({required this.absences, required this.members});
 
-  List<AbsenceListView> adapt() {
+  List<AbsenceListModel> adapt() {
     final Map<int, String> memberMap  = _createMemberMap();
     return absences.map((Absence absence) {
-      return AbsenceListView(
+      return AbsenceListModel(
+        id: absence.id,
         employeeName: _getEmployeeName(memberMap, absence.userId),
         type: absence.type!=null?absence.type!:'Not defined',
         startDate: absence.startDate!,
         endDate: absence.endDate!,
-        status: _getAbsenceStatus(absence)
+        status: _getAbsenceStatus(absence),
       );
     }).toList();
   }
