@@ -42,6 +42,8 @@ dependencies:
   api:
     path: api
   go_router: ^14.2.5
+  gap: ^3.0.1
+  flutter_screenutil: ^5.9.3
 
 
 
