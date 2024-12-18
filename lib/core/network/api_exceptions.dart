@@ -1,6 +1,6 @@
 import 'package:absence_manager/core/network/api_response.dart';
 import 'package:absence_manager/core/network/error_messages.dart';
-import 'package:absence_manager/core/utils/const.dart';
+import 'package:absence_manager/core/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class ApiExceptionHandlingService {
@@ -10,12 +10,12 @@ class ApiExceptionHandlingService {
       return await apiCall();
     } on FormatException catch (err) {
       return ErrorResponse<T>(
-        statusCode: undefinedErrorCode,
+        statusCode: AppConst.undefinedErrorCode,
         errorMessage: ErrorMessages.invalidResponseFormat,
       );
     } catch (e, stackTrace) {
       return ErrorResponse<T>(
-        statusCode: undefinedErrorCode,
+        statusCode: AppConst.undefinedErrorCode,
         errorMessage: ErrorMessages.invalidResponseFormat,
       );
     }

@@ -1,7 +1,7 @@
 import 'package:absence_manager/core/network/api_exceptions.dart';
 import 'package:absence_manager/core/network/api_response.dart';
 import 'package:absence_manager/core/network/error_messages.dart';
-import 'package:absence_manager/core/utils/const.dart';
+import 'package:absence_manager/core/utils/app_constants.dart';
 import 'package:absence_manager/domain/entities/absence/absence.dart';
 import 'package:absence_manager/domain/entities/member/member.dart';
 import 'package:absence_manager/domain/repository/absence_manager_repository.dart';
@@ -21,12 +21,12 @@ class AbsenceManagerRepositoryImpl extends AbsenceManagerRepository {
           return Absence.fromJson(json as Map<String, dynamic>);
         }).toList();
         return SuccessResponse<List<Absence>>(
-          statusCode: successCode,
+          statusCode: AppConst.successCode,
           data: absenceList,
         );
       } else {
         return const ErrorResponse<List<Absence>>(
-          statusCode: undefinedErrorCode,
+          statusCode: AppConst.undefinedErrorCode,
           errorMessage: ErrorMessages.generalError,
         );
       }
@@ -42,12 +42,12 @@ class AbsenceManagerRepositoryImpl extends AbsenceManagerRepository {
           return Member.fromJson(json as Map<String, dynamic>);
         }).toList();
         return SuccessResponse<List<Member>>(
-          statusCode: successCode,
+          statusCode: AppConst.successCode,
           data: members,
         );
       } else {
         return const ErrorResponse<List<Member>>(
-          statusCode: undefinedErrorCode,
+          statusCode: AppConst.undefinedErrorCode,
           errorMessage: ErrorMessages.generalError,
         );
       }
