@@ -5,7 +5,9 @@ class AppConst {
 
   AppConst._();
 
-  static double betweenPadding = AppHeight.s10;
+  static double betweenPadding = AppHeight.s15;
+
+  static double labelGap = AppHeight.s8;
 
   static double formPadding = AppHeight.s20;
 
@@ -26,6 +28,10 @@ class AppConst {
   static double textFieldHorizontalPadding = AppHeight.s12;
 
   static double textFieldVerticalPadding = AppHeight.s16;
+
+  static double filterBottomHeight = AppHeight.s45;
+
+  static double buttonRadius = AppHeight.s100;
 
 
 }

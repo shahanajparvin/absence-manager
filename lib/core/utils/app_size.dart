@@ -60,6 +60,8 @@ class AppHeight {
   static double s45 = 45.0.h;
   static double s48 = 48.0.h;
   static double s50 = 50.0.h;
+  static double s60 = 60.0.h;
+  static double s100 = 100.0.h;
   static double s300 = 300.0.h;
 
 }

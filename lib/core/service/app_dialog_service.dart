@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:absence_manager/core/utils/app_constants.dart';
+import 'package:absence_manager/core/utils/app_constant.dart';
 import 'package:absence_manager/core/utils/app_size.dart';
 import 'package:absence_manager/presentation/feature/common/widgets/app_close_icon.dart';
 import 'package:flutter/material.dart';

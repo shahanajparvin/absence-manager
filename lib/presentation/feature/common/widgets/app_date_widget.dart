@@ -1,48 +1,53 @@
 import 'package:absence_manager/core/mixin/input_decoration_mixin.dart';
+import 'package:absence_manager/core/utils/app_color.dart';
+import 'package:absence_manager/core/utils/app_constant.dart';
+import 'package:absence_manager/core/utils/app_image.dart';
+import 'package:absence_manager/core/utils/app_size.dart';
+import 'package:absence_manager/presentation/feature/common/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
-class AppDatePickerField extends StatefulWidget {
-
+class AppDatePickerField extends StatelessWidget with InputDecorationMixin {
+  final String label;
   final TextEditingController dateController;
-  final GlobalKey<FormFieldState<String>>? fieldKey;
-  final Function(String?)? onChanged;
-
-  final bool isFilterDate;
+  final Function(String) onSelect;
 
   const AppDatePickerField(
-      {super.key,
-
-        required this.dateController,
-        this.fieldKey,
-        this.onChanged,
-        this.isFilterDate = false});
-
-  @override
-  State<AppDatePickerField> createState() => _AppDatePickerFieldState();
-}
-
-class _AppDatePickerFieldState extends State<AppDatePickerField> with InputDecorationMixin{
-  DateTime? selectedDate;
+      {super.key, required this.dateController, required this.label, required this.onSelect});
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      readOnly: true,
-      decoration: customInputDecoration(
-        labelText: 'Select Date',
-        isNoPrefixPadding: true,
-        contentPadding: EdgeInsets.zero,
-        context: context,
-      ),
-      onTap: () {
-        _selectDate(context);
-      },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        textFieldLabel(context: context, label: label),
+        Gap(AppConst.labelGap),
+        TextFormField(
+          controller: dateController,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            readOnly: true,
+            decoration: customInputDecoration(
+              context: context,
+              hintText: 'Select Date',
+              suffixIcon: Padding(
+                  padding: EdgeInsets.only(
+                      top: AppHeight.s10,
+                      bottom: AppHeight.s10,
+                      left: AppHeight.s10,
+                      right: AppHeight.s10),
+                  child: AppIcon(
+                      assetName: AppImage.icCalender,
+                      height: AppWidth.s18,
+                      width: AppWidth.s18,
+                      color: AppColor.greyColor)),
+            ),
 
-      controller: widget.dateController,
-
-      onChanged: (value) {
-        widget.fieldKey!.currentState!.validate();
-      },
+           onTap: (){
+              _selectDate(context);
+           },
+        ),
+      ],
     );
   }
 
@@ -55,10 +60,8 @@ class _AppDatePickerFieldState extends State<AppDatePickerField> with InputDecor
     );
 
     if (pickedDate != null) {
-      setState(() {
-        widget.dateController.text = "${pickedDate.year}-${pickedDate.month}-${pickedDate.day}";
-      });
+      dateController.text = '${pickedDate.year}-${pickedDate.month}-${pickedDate.day}';
+      onSelect(dateController.text);
     }
   }
-
 }

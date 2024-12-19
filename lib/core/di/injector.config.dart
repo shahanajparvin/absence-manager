@@ -18,7 +18,11 @@ import '../../presentation/feature/absence/bloc/absence_detail/absence_detail_bl
     as _i775;
 import '../../presentation/feature/absence/bloc/absence_list/absence_list_bloc.dart'
     as _i286;
+import '../../presentation/feature/absence/bloc/filter/absence_filter_data_bloc_impl.dart'
+    as _i846;
 import '../data/repository/absence_manager_repository_impl.dart' as _i1070;
+import '../service/app_dialog_service.dart' as _i513;
+import '../service/filter_handler_service.dart' as _i1034;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -31,6 +35,11 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.factory<_i513.AppDialogService>(() => _i513.AppDialogService());
+    gh.factory<_i846.AbsenceFilterDataBloc>(
+        () => _i846.AbsenceFilterDataBloc());
+    gh.factory<_i1034.FilterHandler>(
+        () => _i1034.FilterHandler(gh<_i513.AppDialogService>()));
     gh.lazySingleton<_i702.AbsenceManagerRepository>(
         () => _i1070.AbsenceManagerRepositoryImpl());
     gh.factory<_i237.GetAbsencesUseCase>(

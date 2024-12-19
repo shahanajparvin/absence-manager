@@ -1,6 +1,6 @@
 import 'package:absence_manager/core/network/api_response.dart';
 import 'package:absence_manager/core/network/error_messages.dart';
-import 'package:absence_manager/core/utils/app_constants.dart';
+import 'package:absence_manager/core/utils/app_constant.dart';
 import 'package:flutter/material.dart';
 
 class ApiExceptionHandlingService {

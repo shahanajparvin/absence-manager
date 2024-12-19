@@ -1,5 +1,5 @@
 import 'package:absence_manager/core/service/app_dialog_service.dart';
-import 'package:absence_manager/presentation/feature/absence/ui/widgets/filter_bottom_widget.dart';
+import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_filter_bottom.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
@@ -57,7 +57,7 @@ class FilterHandler {
     return ValueListenableBuilder<bool>(
       valueListenable: dataBloc.isApplyEnabled,
       builder: (BuildContext context, bool isApplyEnabled, _) {
-        return FilterBottomWidget(
+        return AbsenceFilterBottom(
           onApply: canApply(dataBloc)
               ? () {
             Navigator.of(context).pop();

@@ -1,5 +1,5 @@
 import 'package:absence_manager/core/utils/app_color.dart';
-import 'package:absence_manager/core/utils/app_constants.dart';
+import 'package:absence_manager/core/utils/app_constant.dart';
 import 'package:absence_manager/core/utils/app_size.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -40,8 +40,7 @@ mixin InputDecorationMixin {
       focusedErrorBorder: _getStrokeBorderStyle(color: AppColor.errorColor,borderRadius: borderRadius),
       isCollapsed: isCollapsed,
       contentPadding:  EdgeInsets.symmetric(vertical:AppConst.textFieldVerticalPadding),
-      prefix:  isNoPrefixPadding!=null?null:Padding(
-          padding: EdgeInsets.only(left: AppConst.textFieldHorizontalPadding)),
+      prefix:  isNoPrefixPadding!=null?null:Padding(padding: EdgeInsets.only(left: AppConst.textFieldHorizontalPadding)),
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
       suffixIconConstraints: const BoxConstraints(

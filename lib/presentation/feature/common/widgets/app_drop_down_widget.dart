@@ -1,18 +1,19 @@
 import 'package:absence_manager/core/mixin/input_decoration_mixin.dart';
 import 'package:absence_manager/core/utils/app_color.dart';
-import 'package:absence_manager/core/utils/app_constants.dart';
+import 'package:absence_manager/core/utils/app_constant.dart';
 import 'package:absence_manager/core/utils/app_size.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
-class AppOverlayDropDown extends StatefulWidget {
+class AppDropDown extends StatefulWidget {
   final String hintText;
   final List<String> items;
   final Function(String?) onSelectCallBack;
   final String? initialValue;
   final String label;
 
-  const AppOverlayDropDown(
+  const AppDropDown(
       {super.key,
         required this.items,
         required this.hintText,
@@ -20,10 +21,10 @@ class AppOverlayDropDown extends StatefulWidget {
         this.initialValue, required this.label});
 
   @override
-  State<AppOverlayDropDown> createState() => _AppOverlayDropDownState();
+  State<AppDropDown> createState() => _AppDropDownState();
 }
 
-class _AppOverlayDropDownState extends State<AppOverlayDropDown>
+class _AppDropDownState extends State<AppDropDown>
     with InputDecorationMixin {
   bool _isDropdownOpen = false;
 
@@ -51,11 +52,13 @@ class _AppOverlayDropDownState extends State<AppOverlayDropDown>
     )
         : BorderRadius.circular(AppConst.textFieldBorderRadius);
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         textFieldLabel(
             context: context,
             label: widget.label),
+        Gap(AppConst.labelGap),
         SizedBox(
           width: double.infinity,
           child: DropdownButtonFormField2<String>(
@@ -107,7 +110,7 @@ class _AppOverlayDropDownState extends State<AppOverlayDropDown>
                   bottomRight: Radius.circular(AppConst.textFieldBorderRadius),
                 ),
               ),
-              maxHeight: AppHeight.s300,
+              maxHeight: 600,
             ),
             menuItemStyleData: MenuItemStyleData(
               padding: EdgeInsets.zero,
@@ -116,11 +119,11 @@ class _AppOverlayDropDownState extends State<AppOverlayDropDown>
             iconStyleData: IconStyleData(
               icon: Padding(
                 padding: EdgeInsets.only(right: AppWidth.s10),
-                child: const Icon(Icons.keyboard_arrow_down),
+                child: const Icon(Icons.keyboard_arrow_down,color:AppColor.darkGreyColor ,),
               ),
               openMenuIcon: Padding(
                 padding: EdgeInsets.only(right: AppWidth.s10),
-                child: const Icon(Icons.keyboard_arrow_up),
+                child: const Icon(Icons.keyboard_arrow_up,color:AppColor.darkGreyColor ,),
               ),
             ),
           ),
