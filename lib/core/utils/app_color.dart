@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
-  AppColor._();
 
+  AppColor._();
 
   static const Color appBarColor = Color(0xff005F6A);
 
@@ -27,5 +27,11 @@ class AppColor {
   static const Color themeDeepBlackColor = Color(0xff093E60);
 
   static const Color tealColor = Color(0xFF16A9B7);
+
+  static const Color borderColor = Color(0xFFDDDDDD);
+
+  static const Color textColorDark = Color(0xff185E7C);
+
+  static const Color dateColor = Color(0xff16A9B7);
 
 }

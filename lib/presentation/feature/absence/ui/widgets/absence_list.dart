@@ -4,6 +4,7 @@ import 'package:absence_manager/core/di/injector.dart';
 import 'package:absence_manager/core/route/app_route.dart';
 import 'package:absence_manager/core/service/filter_handler_service.dart';
 import 'package:absence_manager/core/utils/app_constant.dart';
+import 'package:absence_manager/core/utils/app_size.dart';
 import 'package:absence_manager/core/utils/core_utils.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_bloc.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_event.dart';
@@ -13,6 +14,7 @@ import 'package:absence_manager/presentation/feature/absence/model/absence_list_
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_filter.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_filter_header.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_search_textfield.dart';
+import 'package:absence_manager/presentation/feature/absence/ui/widgets/ansence_list_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -119,8 +121,6 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
               if (state is AbsenceLoadingState) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is AbsenceSuccessState) {
-
-                // Post-build check for fetching more items if no scrolling is possible
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   if (scrollController.hasClients &&
                       scrollController.position.maxScrollExtent <= 0 &&
@@ -137,7 +137,10 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
                     return false;
                   },
                   child: Expanded(
-                    child: ListView.builder(
+                    child: ListView.separated(
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(height: AppHeight.s15);
+                      },
                       padding: EdgeInsets.zero,
                       controller: scrollController,
                       itemCount: state.absences.length + (state.hasMorePages ? 1 : 0), // Add 1 for loading indicator at the bottom
@@ -156,25 +159,8 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
                           );
                         }
                         final AbsenceListModel absence = state.absences[index];
-                        return ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          onTap: (){
-                          context.pushNamed(
-                              AppRoutes.absenceDetail.name,
-                              extra: absence.id,
-                            );
-                          },
-                          title: SizedBox(
-                              height: 20,
-                              child: Text(absence.employeeName)),
-                          subtitle: Column(
-                            mainAxisSize : MainAxisSize.min,
-                            crossAxisAlignment : CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text('Status: ${absence.status}'),
-                              Text('Period: ${absence.startDate} - ${absence.endDate}'),
-                            ],
-                          ),
+                        return AbsenceListItem(
+                          absence: absence,
                         );
                       },
                     ),
