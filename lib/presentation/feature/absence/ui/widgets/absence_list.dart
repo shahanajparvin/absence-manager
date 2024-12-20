@@ -7,8 +7,9 @@ import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/a
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_state.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/filter/absence_filter_data_bloc_impl.dart';
 import 'package:absence_manager/presentation/feature/absence/model/absence_list_model.dart';
-import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_filter_header.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_filter.dart';
+import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_filter_header.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -24,12 +25,14 @@ class AbsenceListWidget extends StatefulWidget {
 
 class _AbsenceListWidgetState extends State<AbsenceListWidget> {
 
-  final int _itemsPerPage = 15;
+  final int _itemsPerPage = 10;
 
   final ScrollController scrollController = ScrollController();
 
   final FilterHandler _filterHandler  = injector();
   final AbsenceFilterDataBloc absenceFilterDataBloc = injector();
+  final ValueNotifier<bool> isLoadingNotifier = ValueNotifier<bool>(false);
+
 
   @override
   void initState() {
@@ -39,12 +42,27 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
 
 
   Future<void> _onScroll(BuildContext context) async {
-    await AppUtils.delay(const Duration(seconds: 2));
-
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent&&context.mounted) {
+
+      isLoadingNotifier.value = true;
+
+      // Wait for the widget tree to update
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (scrollController.hasClients) {
+          scrollController.animateTo(
+            scrollController.position.maxScrollExtent, // Target the latest max extent
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
+        }
+      });
+
+
+      await AppUtils.delay(const Duration(seconds: 2));
       if (context.read<AbsenceListBloc>().state is AbsenceSuccessState &&
           (context.read<AbsenceListBloc>().state as AbsenceSuccessState).hasMorePages) {
         BlocProvider.of<AbsenceListBloc>(context).add(FetchPaginatedAbsenceEvent(_itemsPerPage));
+
       }
     }
   }
@@ -52,9 +70,8 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        // Filter Widget
-         Row(children: [
+      children: <Widget>[
+        Row(children: <Widget>[
            const Spacer(),
            IconButton(onPressed:_filterIconPressFunctionality,
                icon: const Icon(Icons.filter))
@@ -67,10 +84,19 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
             if (state is AbsenceLoadingState) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is AbsenceSuccessState) {
+
+              // Post-build check for fetching more items if no scrolling is possible
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (scrollController.hasClients &&
+                    scrollController.position.maxScrollExtent <= 0 &&
+                    state.hasMorePages) {
+                  BlocProvider.of<AbsenceListBloc>(context).add(FetchPaginatedAbsenceEvent(_itemsPerPage));
+                }
+              });
+
               return NotificationListener<ScrollNotification>(
                 onNotification: (ScrollNotification scrollInfo)  {
                   if (scrollInfo is ScrollEndNotification) {
-
                     _onScroll(context);
                   }
                   return false;
@@ -81,7 +107,17 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
                     itemCount: state.absences.length + (state.hasMorePages ? 1 : 0), // Add 1 for loading indicator at the bottom
                     itemBuilder: (BuildContext context, int index) {
                       if (index == state.absences.length) {
-                        return const Center(child: CircularProgressIndicator());
+                        return ValueListenableBuilder<bool>(
+                          valueListenable: isLoadingNotifier,
+                          builder: (BuildContext context, bool isLoading, Widget? child) {
+                            return isLoading
+                                ? Container(
+                                height: 100,
+                                color: Colors.amber,
+                                child: const Center(child: CupertinoActivityIndicator()))
+                                : const SizedBox.shrink();
+                          },
+                        );
                       }
                       final AbsenceListModel absence = state.absences[index];
                       return ListTile(
@@ -91,13 +127,15 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
                             extra: absence.id,
                           );
                         },
-                        title: Text(absence.employeeName),
+                        title: SizedBox(
+                            height: 20,
+                            child: Text(absence.employeeName)),
                         subtitle: Column(
                           mainAxisSize : MainAxisSize.min,
                           crossAxisAlignment : CrossAxisAlignment.start,
-                          children: [
+                          children: <Widget>[
                             Text('Status: ${absence.status}'),
-                           Text('Period: ${absence.startDate} - ${absence.endDate}'),
+                            Text('Period: ${absence.startDate} - ${absence.endDate}'),
                           ],
                         ),
                       );
@@ -126,24 +164,27 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
         ),
         context:context,dataBloc:absenceFilterDataBloc,
         onApply: () async {
-          applyFilters(absenceFilterDataBloc.sickType, absenceFilterDataBloc.startDate);
+          applyFilters(
+              startDate: absenceFilterDataBloc.startDate,
+              endDate: absenceFilterDataBloc.endDate,
+              type: absenceFilterDataBloc.sickType);
         },
         onReset: () async {
-
+          resetFilters();
         }
     );
   }
 
-  void applyFilters(String? dateRange, String? type) {
-    /*setState(() {
-      filteredDateRange = dateRange;
-      filteredType = type;
-    });*/
+  void applyFilters({ String? type,String? startDate, String? endDate,}) {
+    debugPrint("Filters applied:");
+    debugPrint("Date Range: $startDate");
+    debugPrint("startDate: $startDate");
+    debugPrint("endDate: $endDate");
+    BlocProvider.of<AbsenceListBloc>(context).add(FilterAbsencesEvent(type: type,startDate: startDate,endDate: endDate));
+  }
 
-    // Trigger data fetch with applied filters
-    print("Filters applied:");
-    print("Date Range: $dateRange");
-    print("Type: $type");
+  void resetFilters() {
+    BlocProvider.of<AbsenceListBloc>(context).add(ResetFiltersEvent());
   }
 }
 

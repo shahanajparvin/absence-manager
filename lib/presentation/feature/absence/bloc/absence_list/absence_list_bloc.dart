@@ -4,10 +4,8 @@ import 'package:absence_manager/domain/entities/member/member.dart';
 import 'package:absence_manager/domain/usecases/get_absences_usecase.dart';
 import 'package:absence_manager/domain/usecases/get_members_usecase.dart';
 import 'package:absence_manager/presentation/feature/absence/adapter/absence_list_view_adapter.dart';
-import 'package:absence_manager/presentation/feature/absence/adapter/ansence_detail_view_adapter.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_event.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_state.dart';
-import 'package:absence_manager/presentation/feature/absence/model/absence_detail_model.dart';
 import 'package:absence_manager/presentation/feature/absence/model/absence_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,12 +22,16 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
   final GetAbsencesUseCase _getAbsencesUseCase;
   final GetMembersUseCase _getMembersUseCase;
 
+  List<AbsenceListModel>? _totalAbsences;
+
   AbsenceListBloc(this._getAbsencesUseCase, this._getMembersUseCase) : super(AbsenceInitial()) {
-    on<GetAbsencesWithMembersEvent>(onFetchAbsences);
-    on<FetchPaginatedAbsenceEvent>(onFetchPaginatedAbsences);
+    on<GetAbsencesWithMembersEvent>(_onFetchAbsences);
+    on<FetchPaginatedAbsenceEvent>(_onFetchPaginatedAbsences);
+    on<FilterAbsencesEvent>(_onFilterAbsences);
+    on<ResetFiltersEvent>(_onResetFilters);
   }
 
-  Future<void> onFetchAbsences(
+  Future<void> _onFetchAbsences(
       GetAbsencesWithMembersEvent event, Emitter<AbsenceListState> emit) async {
     emit(AbsenceLoadingState());
 
@@ -58,9 +60,7 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
 
 
 
-
-
-  Future<void> onFetchPaginatedAbsences(FetchPaginatedAbsenceEvent event, Emitter<AbsenceListState> emit) async {
+  Future<void> _onFetchPaginatedAbsences(FetchPaginatedAbsenceEvent event, Emitter<AbsenceListState> emit) async {
     try {
       final List<ApiResponse<List<Object>>> responses = await Future.wait(<Future<ApiResponse<List<Object>>>>[
         _getAbsencesUseCase.execute(),
@@ -88,21 +88,19 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
         final List<Absence> paginatedAbsences = absences.data!.sublist(
             startIndex, endIndex > absences.data!.length ? absences.data!.length : endIndex);
 
-
-        final List<AbsenceListModel> list = await _adaptAbsencesData(paginatedAbsences, members.data!);
-
-
+        final List<AbsenceListModel> list =  _adaptAbsencesData(paginatedAbsences, members.data!);
 
         final bool hasMorePages = endIndex < absences.data!.length;
 
         debugPrint('hasMorePages $hasMorePages');
 
-        List<AbsenceListModel> previousAbsences = [];
+        List<AbsenceListModel> previousAbsences = <AbsenceListModel>[];
 
         if(state is AbsenceSuccessState){
           previousAbsences = (state as AbsenceSuccessState).absences;
         }
         final List<AbsenceListModel> totalAbsences = previousAbsences + list;
+        _totalAbsences = totalAbsences;
         emit(AbsenceSuccessState(
           totalAbsences, // Add the new data to the existing list
           hasMorePages: hasMorePages,
@@ -117,6 +115,92 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
       emit(AbsenceErrorState('An unexpected error occurred'));
     }
   }
+
+
+  Future<void> _onFilterAbsences(
+      FilterAbsencesEvent event, Emitter<AbsenceListState> emit) async {
+
+    emit(AbsenceLoadingState());
+
+    await Future.delayed(const Duration(milliseconds: 1000));
+
+    try {
+      final List<ApiResponse<List<Object>>> responses = await Future.wait(<Future<ApiResponse<List<Object>>>>[
+        _getAbsencesUseCase.execute(),
+        _getMembersUseCase.execute(),
+      ]);
+
+      final ApiResponse<List<Absence>> absences = responses[0] as ApiResponse<List<Absence>>;
+      final ApiResponse<List<Member>> members = responses[1] as ApiResponse<List<Member>>;
+
+      if (absences is SuccessResponse<List<Absence>> && members is SuccessResponse<List<Member>>) {
+
+        final List<Absence> filteredAbsences = _filterAbsences(
+          absences:absences.data! ,
+          type: event.type?.toLowerCase(),
+          startDate: event.startDate,
+          endDate: event.endDate
+        );
+
+        debugPrint('-----filteredAbsences ${filteredAbsences.length}');
+
+        final List<AbsenceListModel> list =  _adaptAbsencesData(filteredAbsences, members.data!);
+
+        emit(AbsenceSuccessState(list));
+      } else {
+        final String errorMessage = _getErrorMessage(absences, members);
+        emit(AbsenceErrorState(errorMessage));
+      }
+    } catch (e, stackTrace) {
+      emit(AbsenceErrorState('An unexpected error occurred'));
+    }
+  }
+
+  List<Absence> _filterAbsences({
+    List<Absence> absences = const <Absence>[],
+    String? startDate,
+    String? endDate,
+    String? type,
+  }) {
+    return absences.where((Absence absence) {
+      final bool matchesStartDate = startDate == null || absence.startDate == startDate;
+      final bool matchesEndDate = endDate == null || absence.endDate == endDate;
+      final bool matchesType = type == null || type == 'all' || absence.type == type;
+
+      return matchesStartDate && matchesEndDate && matchesType;
+    }).toList();
+  }
+
+
+  void _onResetFilters(ResetFiltersEvent event, Emitter<AbsenceListState> emit) {
+    if (_totalAbsences != null) {
+      emit(AbsenceSuccessState(_totalAbsences!));
+    } else {
+      emit(AbsenceErrorState('No previous data to restore.'));
+    }
+  }
+
+
+
+  /* List<Absence> filterAbsences({
+    List<Absence> absences = const <Absence>[],
+    String? startDate,
+    String? endDate,
+    String? type,
+  }) {
+    if (startDate == null && type == null) {
+      return absences;
+    }
+    return absences.where((Absence absence) {
+      if (startDate != null&& type==null){
+        return absence.startDate == startDate;
+      }
+      if (startDate == null&& type != null) {
+        return absence.type == type;
+      }
+      return absence.startDate == startDate && absence.type == type;
+    }).toList();
+  }*/
 
 
 
@@ -135,17 +219,7 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
     return adapter.adapt();  // Return the adapted list
   }
 
-  AbsenceDetailModel _adaptAbsenceDetailData(
-      Absence absence,
-      Member member)  {
 
-    final AbsenceDetailViewAdapter adapter = AbsenceDetailViewAdapter(
-      absence: absence,
-      member: member,
-    );
-
-    return adapter.adapt();  // Return the adapted list
-  }
 
 
   String _getErrorMessage(
@@ -160,56 +234,6 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
     }
   }
 
-
-  Future<void> onFetchAbsenceDetails(
-      FetchAbsenceDetailsEvent event,
-      Emitter<AbsenceListState> emit,
-      ) async {
-    try {
-      emit(AbsenceLoadingState()); // Emit loading state
-
-      final List<ApiResponse<List<Object>>> responses = await Future.wait(<Future<ApiResponse<List<Object>>>>[
-        _getAbsencesUseCase.execute(),
-        _getMembersUseCase.execute(),
-      ]);
-
-      final ApiResponse<List<Absence>> absences = responses[0] as ApiResponse<List<Absence>>;
-      final ApiResponse<List<Member>> members = responses[1] as ApiResponse<List<Member>>;
-
-      if (absences is SuccessResponse<List<Absence>> && members is SuccessResponse<List<Member>>) {
-
-
-
-        final Absence? absence= _findAbsenceById(absences.data!, event.absenceId);
-
-        if(absence!=null){
-          final Member? member = _findMemberById(members.data!, absence.id);
-          final AbsenceDetailModel absenceDetailsView = await _adaptAbsenceDetailData(absence, member!);
-
-        }
-
-
-
-      } else {
-        final String errorMessage = _getErrorMessage(absences, members);
-        emit(AbsenceErrorState(errorMessage));
-      }
-
-    } catch (e, stackTrace) {
-      debugPrint('Error fetching absence details: $e');
-      debugPrintStack(stackTrace: stackTrace);
-      emit(AbsenceErrorState('An unexpected error occurred'));
-    }
-  }
-
-
-  Absence? _findAbsenceById(List<Absence> absences, int id) {
-    return absences.firstWhere((Absence absence) => absence.id == id);
-  }
-
-  Member? _findMemberById(List<Member> members, int memberId) {
-    return members.firstWhere((Member member) => member.userId == memberId);
-  }
 
 
 }

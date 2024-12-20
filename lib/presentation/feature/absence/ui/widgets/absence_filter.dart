@@ -17,13 +17,20 @@ class AbsenceFilter extends StatefulWidget {
 class _AbsenceFilterState extends State<AbsenceFilter> {
   DateTimeRange? selectedDateRange;
   String? selectedType;
-  final List<String> absenceTypes = ['All', 'Sick Leave', 'Vacation', 'Personal Leave',];
-  final TextEditingController _dateController = TextEditingController();
+  final List<String> absenceTypes = ['All', 'Vacation', 'Sickness',];
+  final TextEditingController _startDateController = TextEditingController();
+  final TextEditingController _endDateController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _dateController.text = widget.dataBloc.startDate;
+    if(widget.dataBloc.startDate!=null){
+      _startDateController.text = widget.dataBloc.startDate!;
+    }
+    if(widget.dataBloc.endDate!=null){
+      _endDateController.text = widget.dataBloc.endDate!;
+    }
+
   }
 
   @override
@@ -45,11 +52,19 @@ class _AbsenceFilterState extends State<AbsenceFilter> {
         ),
         Gap(AppConst.betweenPadding),
         AppDatePickerField(
-            dateController: _dateController,
-          label: 'Date',
+          dateController: _startDateController,
+          label: 'Start Date',
           onSelect: (String selectDate){
             widget.dataBloc.updateStartDate(selectDate);
           }
+        ),
+        Gap(AppConst.betweenPadding),
+        AppDatePickerField(
+            dateController: _endDateController,
+            label: 'End Date',
+            onSelect: (String selectDate){
+              widget.dataBloc.updateEndDate(selectDate);
+            }
         )
       ],
     );

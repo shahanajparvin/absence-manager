@@ -3,12 +3,15 @@ import 'package:injectable/injectable.dart';
 
 @Injectable()
 class AbsenceFilterDataBloc extends FilterDataBloc {
-  String _sickType = '';
-  String _startDate = '';
+  String? _sickType;
+  String? _startDate;
+  String? _endDate;
 
-  String get sickType => _sickType;
+  String? get sickType => _sickType;
 
-  String get startDate => _startDate;
+  String? get startDate => _startDate;
+
+  String? get endDate => _endDate;
 
   void updateSickType(String type) {
     _sickType = type;
@@ -20,14 +23,20 @@ class AbsenceFilterDataBloc extends FilterDataBloc {
     isApplyEnabled.value = hasFilters;
   }
 
+  void updateEndDate(String newEndDate) {
+    _endDate = newEndDate;
+    isApplyEnabled.value = hasFilters;
+  }
+
   @override
   void resetFilters() {
-    _sickType = '';
-    _startDate = '';
+    _sickType = null;
+    _startDate = null;
+    _endDate = null;
   }
 
   @override
   bool get hasFilters {
-    return _sickType.isNotEmpty || _startDate.isNotEmpty;
+    return _sickType!=null || _startDate!=null || _endDate!=null;
   }
 }

@@ -6,6 +6,7 @@ import 'package:absence_manager/core/utils/app_size.dart';
 import 'package:absence_manager/presentation/feature/common/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 
 class AppDatePickerField extends StatelessWidget with InputDecorationMixin {
   final String label;
@@ -60,7 +61,9 @@ class AppDatePickerField extends StatelessWidget with InputDecorationMixin {
     );
 
     if (pickedDate != null) {
-      dateController.text = '${pickedDate.year}-${pickedDate.month}-${pickedDate.day}';
+      DateFormat dateFormat = DateFormat('yyyy-MM-dd'); // Define the format
+      dateController.text = dateFormat.format(pickedDate); // Format the picked date
+     /* dateController.text = '${pickedDate.year}-${pickedDate.month}-${pickedDate.day}';*/
       onSelect(dateController.text);
     }
   }
