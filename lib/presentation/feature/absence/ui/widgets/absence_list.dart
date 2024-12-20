@@ -56,13 +56,13 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
       if (query.length >= 2) {
         _triggerSearch(query);
       } else if (query.isEmpty) {
-
+        resetFilters();
       }
     });
   }
 
   void _triggerSearch(String query) {
-
+    BlocProvider.of<AbsenceListBloc>(context).add(SearchAbsencesEvent(searchText: query));
   }
 
 
@@ -214,10 +214,6 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
   }
 
   void applyFilters({ String? type,String? startDate, String? endDate,}) {
-    debugPrint("Filters applied:");
-    debugPrint("Date Range: $startDate");
-    debugPrint("startDate: $startDate");
-    debugPrint("endDate: $endDate");
     BlocProvider.of<AbsenceListBloc>(context).add(FilterAbsencesEvent(type: type,startDate: startDate,endDate: endDate));
   }
 

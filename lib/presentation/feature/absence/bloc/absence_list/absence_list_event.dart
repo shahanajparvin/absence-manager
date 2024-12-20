@@ -1,5 +1,3 @@
-
-
 abstract class AbsenceListEvent {}
 
 class GetAbsencesWithMembersEvent extends AbsenceListEvent {}
@@ -15,6 +13,11 @@ class FilterAbsencesEvent extends AbsenceListEvent {
   final String? endDate;
 
   FilterAbsencesEvent( {this.type, this.startDate, this.endDate});
+}
+
+class SearchAbsencesEvent extends AbsenceListEvent {
+  final String searchText;
+  SearchAbsencesEvent( {required this.searchText});
 }
 
 class ResetFiltersEvent extends AbsenceListEvent {
