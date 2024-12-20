@@ -1,3 +1,4 @@
+import 'package:absence_manager/core/utils/app_context.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/pages/absence_detail_page.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/pages/absence_list_page.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ enum AppRoutes {
 
 
 final GoRouter router = GoRouter(
+  navigatorKey: AppContext.navigatorKey,
   routes: <RouteBase>[
     GoRoute(
       path: '/',
