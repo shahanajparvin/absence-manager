@@ -1,6 +1,7 @@
 import 'package:absence_manager/core/di/injector.dart';
 import 'package:absence_manager/core/flavor/flavor_config.dart';
 import 'package:absence_manager/core/route/app_route.dart';
+import 'package:absence_manager/core/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -41,10 +42,7 @@ class MyApp extends StatelessWidget {
         ],
         supportedLocales: AppLocalizations.supportedLocales,
         locale: const Locale('de', 'DE'),
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
-          useMaterial3: true,
-        ),
+        theme: appTheme,
         routerConfig: router
     );
   }
