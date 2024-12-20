@@ -1,6 +1,9 @@
+import 'dart:async' as debounce;
+
 import 'package:absence_manager/core/di/injector.dart';
 import 'package:absence_manager/core/route/app_route.dart';
 import 'package:absence_manager/core/service/filter_handler_service.dart';
+import 'package:absence_manager/core/utils/app_constant.dart';
 import 'package:absence_manager/core/utils/core_utils.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_bloc.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_event.dart';
@@ -9,12 +12,12 @@ import 'package:absence_manager/presentation/feature/absence/bloc/filter/absence
 import 'package:absence_manager/presentation/feature/absence/model/absence_list_model.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_filter.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_filter_header.dart';
+import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_search_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-
 
 
 
@@ -33,11 +36,33 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
   final AbsenceFilterDataBloc absenceFilterDataBloc = injector();
   final ValueNotifier<bool> isLoadingNotifier = ValueNotifier<bool>(false);
 
+  final TextEditingController searchController = TextEditingController();
+  final FocusNode focusNode = FocusNode();
+
+  debounce.Timer? _debounce;
+
 
   @override
   void initState() {
     super.initState();
     BlocProvider.of<AbsenceListBloc>(context).add(FetchPaginatedAbsenceEvent(_itemsPerPage));
+    searchController
+        .addListener(() => _onSearchChanged(searchController.text));
+  }
+
+  void _onSearchChanged(String query) {
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = debounce.Timer(const Duration(seconds: 1), () {
+      if (query.length >= 2) {
+        _triggerSearch(query);
+      } else if (query.isEmpty) {
+
+      }
+    });
+  }
+
+  void _triggerSearch(String query) {
+
   }
 
 
@@ -69,90 +94,103 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Row(children: <Widget>[
-           const Spacer(),
-           IconButton(onPressed:_filterIconPressFunctionality,
-               icon: const Icon(Icons.filter))
-         ],),
+    return Padding(
+      padding:  EdgeInsets.all(AppConst.formPadding),
+      child: Column(
+        children: <Widget>[
+          Row(children: <Widget>[
+            Expanded(
+              child: AbsenceSearchBar(
+                 focusNode: focusNode,
+                searchController: searchController,
+                 onSuffixIconCallBack: (){
+                   _triggerSearch('');
+                 },
+               ),
+            ),
+             IconButton(onPressed:_filterIconPressFunctionality,
+                 icon: const Icon(Icons.filter))
+           ],),
 
-        const Gap(30),
+          const Gap(10),
 
-        BlocBuilder<AbsenceListBloc, AbsenceListState>(
-          builder: (BuildContext context, AbsenceListState state) {
-            if (state is AbsenceLoadingState) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is AbsenceSuccessState) {
+          BlocBuilder<AbsenceListBloc, AbsenceListState>(
+            builder: (BuildContext context, AbsenceListState state) {
+              if (state is AbsenceLoadingState) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is AbsenceSuccessState) {
 
-              // Post-build check for fetching more items if no scrolling is possible
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                if (scrollController.hasClients &&
-                    scrollController.position.maxScrollExtent <= 0 &&
-                    state.hasMorePages) {
-                  BlocProvider.of<AbsenceListBloc>(context).add(FetchPaginatedAbsenceEvent(_itemsPerPage));
-                }
-              });
-
-              return NotificationListener<ScrollNotification>(
-                onNotification: (ScrollNotification scrollInfo)  {
-                  if (scrollInfo is ScrollEndNotification) {
-                    _onScroll(context);
+                // Post-build check for fetching more items if no scrolling is possible
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (scrollController.hasClients &&
+                      scrollController.position.maxScrollExtent <= 0 &&
+                      state.hasMorePages) {
+                    BlocProvider.of<AbsenceListBloc>(context).add(FetchPaginatedAbsenceEvent(_itemsPerPage));
                   }
-                  return false;
-                },
-                child: Expanded(
-                  child: ListView.builder(
-                    controller: scrollController,
-                    itemCount: state.absences.length + (state.hasMorePages ? 1 : 0), // Add 1 for loading indicator at the bottom
-                    itemBuilder: (BuildContext context, int index) {
-                      if (index == state.absences.length) {
-                        return ValueListenableBuilder<bool>(
-                          valueListenable: isLoadingNotifier,
-                          builder: (BuildContext context, bool isLoading, Widget? child) {
-                            return isLoading
-                                ? Container(
-                                height: 100,
-                                color: Colors.amber,
-                                child: const Center(child: CupertinoActivityIndicator()))
-                                : const SizedBox.shrink();
-                          },
-                        );
-                      }
-                      final AbsenceListModel absence = state.absences[index];
-                      return ListTile(
-                        onTap: (){
-                        context.pushNamed(
-                            AppRoutes.absenceDetail.name,
-                            extra: absence.id,
+                });
+
+                return NotificationListener<ScrollNotification>(
+                  onNotification: (ScrollNotification scrollInfo)  {
+                    if (scrollInfo is ScrollEndNotification) {
+                      _onScroll(context);
+                    }
+                    return false;
+                  },
+                  child: Expanded(
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      controller: scrollController,
+                      itemCount: state.absences.length + (state.hasMorePages ? 1 : 0), // Add 1 for loading indicator at the bottom
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index == state.absences.length) {
+                          return ValueListenableBuilder<bool>(
+                            valueListenable: isLoadingNotifier,
+                            builder: (BuildContext context, bool isLoading, Widget? child) {
+                              return isLoading
+                                  ? Container(
+                                  height: 100,
+                                  color: Colors.amber,
+                                  child: const Center(child: CupertinoActivityIndicator()))
+                                  : const SizedBox.shrink();
+                            },
                           );
-                        },
-                        title: SizedBox(
-                            height: 20,
-                            child: Text(absence.employeeName)),
-                        subtitle: Column(
-                          mainAxisSize : MainAxisSize.min,
-                          crossAxisAlignment : CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text('Status: ${absence.status}'),
-                            Text('Period: ${absence.startDate} - ${absence.endDate}'),
-                          ],
-                        ),
-                      );
-                    },
+                        }
+                        final AbsenceListModel absence = state.absences[index];
+                        return ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          onTap: (){
+                          context.pushNamed(
+                              AppRoutes.absenceDetail.name,
+                              extra: absence.id,
+                            );
+                          },
+                          title: SizedBox(
+                              height: 20,
+                              child: Text(absence.employeeName)),
+                          subtitle: Column(
+                            mainAxisSize : MainAxisSize.min,
+                            crossAxisAlignment : CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text('Status: ${absence.status}'),
+                              Text('Period: ${absence.startDate} - ${absence.endDate}'),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ),
-              );
-            } else if (state is AbsenceErrorState) {
-              return Center(
-                child: Text('Error: ${state.errorMessage}', style: const TextStyle(color: Colors.red)),
-              );
-            } else {
-              return const Center(child: Text('No absences list found.'));
-            }
-          },
-        ),
-      ],
+                );
+              } else if (state is AbsenceErrorState) {
+                return Center(
+                  child: Text('Error: ${state.errorMessage}', style: const TextStyle(color: Colors.red)),
+                );
+              } else {
+                return const Center(child: Text('No absences list found.'));
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 

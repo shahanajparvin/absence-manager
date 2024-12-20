@@ -33,7 +33,6 @@ mixin InputDecorationMixin {
       hintText: hintText ?? '',
       errorStyle: _errorStyle(context),
       hintStyle: _hintStyle(context),
-      constraints: BoxConstraints(minHeight: AppConst.textFieldHeight),
       enabledBorder: _getStrokeBorderStyle(color: borderColor ?? AppColor.lightGreyColor,borderRadius: borderRadius),
       focusedBorder: _getStrokeBorderStyle(color: borderColor ?? AppColor.lightGreyColor,borderRadius: borderRadius),
       errorBorder: _getStrokeBorderStyle(color:  AppColor.errorColor,borderRadius: borderRadius),
@@ -43,9 +42,17 @@ mixin InputDecorationMixin {
       prefix:  isNoPrefixPadding!=null?null:Padding(padding: EdgeInsets.only(left: AppConst.textFieldHorizontalPadding)),
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
+      prefixIconConstraints: const BoxConstraints(
+        minWidth: 0,
+        minHeight: 0,
+      ),
       suffixIconConstraints: const BoxConstraints(
         minWidth: 0,
         minHeight: 0,
+      ),
+      constraints: BoxConstraints(
+        maxHeight: AppConst.textFieldHeight,
+        minHeight: AppHeight.s40,
       ),
     );
   }
