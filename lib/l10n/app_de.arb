@@ -1,6 +1,13 @@
 
 {
   "@@locale": "de",
-  "welcome_to" : "Willkommen bei"
+  "welcome_to" : "Willkommen bei",
+  "started_on": "Gestartet am",
+  "ended_on": "Beendet am",
+  "confirm": "Bestätigt",
+  "reject": "Abgelehnt",
+  "pending": "Ausstehend",
+  "sickness": "Krankheit",
+  "vacation": "Urlaub"
 
 }

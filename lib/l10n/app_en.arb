@@ -1,7 +1,11 @@
 {
   "@@locale": "en",
-  "welcome_to": "Welcome to"
-
-
-
+  "welcome_to": "Welcome to",
+  "started_on" : "Started on",
+  "ended_on" : "Ended on",
+  "confirm" : "Confirmed",
+  "reject" : "Rejected",
+  "pending" : "Pending",
+  "sickness" : "Sickness",
+  "vacation" : "Vacation"
 }
