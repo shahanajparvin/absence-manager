@@ -1,7 +1,5 @@
 import 'dart:async' as debounce;
-
 import 'package:absence_manager/core/di/injector.dart';
-import 'package:absence_manager/core/route/app_route.dart';
 import 'package:absence_manager/core/service/filter_handler_service.dart';
 import 'package:absence_manager/core/utils/app_constant.dart';
 import 'package:absence_manager/core/utils/app_size.dart';
@@ -16,13 +14,11 @@ import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_list_shimmer.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_search_textfield.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/ansence_list_item.dart';
+import 'package:absence_manager/presentation/feature/common/widgets/app_no_data_error_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
-import 'package:shimmer/shimmer.dart';
-
 
 
 class AbsenceListWidget extends StatefulWidget {
@@ -87,7 +83,7 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
 
 
       await AppUtils.delay(const Duration(seconds: 2));
-      if (context.read<AbsenceListBloc>().state is AbsenceSuccessState &&
+      if (context.mounted&&context.read<AbsenceListBloc>().state is AbsenceSuccessState &&
           (context.read<AbsenceListBloc>().state as AbsenceSuccessState).hasMorePages) {
         BlocProvider.of<AbsenceListBloc>(context).add(FetchPaginatedAbsenceEvent(_itemsPerPage));
 
@@ -113,27 +109,14 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
             ),
              IconButton(onPressed:_filterIconPressFunctionality,
                  icon: const Icon(Icons.filter))
-           ],),
-
-          const Gap(10),
-
-
+           ]),
+          Gap(AppHeight.s10),
           BlocBuilder<AbsenceListBloc, AbsenceListState>(
             builder: (BuildContext context, AbsenceListState state) {
-
-              debugPrint('------state '+state.toString());
-
               if (state is AbsenceInitial || state is AbsenceLoadingState) {
                 return const AbsenceListShimmer();
               } else if (state is AbsenceSuccessState) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  if (scrollController.hasClients &&
-                      scrollController.position.maxScrollExtent <= 0 &&
-                      state.hasMorePages) {
-                    BlocProvider.of<AbsenceListBloc>(context).add(FetchPaginatedAbsenceEvent(_itemsPerPage));
-                  }
-                });
-
+                _fetchDataWithNoScroll(state);
                 return NotificationListener<ScrollNotification>(
                   onNotification: (ScrollNotification scrollInfo)  {
                     if (scrollInfo is ScrollEndNotification) {
@@ -141,7 +124,7 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
                     }
                     return false;
                   },
-                  child: Expanded(
+                  child: state.absences.isNotEmpty?Expanded(
                     child: ListView.separated(
                       separatorBuilder: (BuildContext context, int index) {
                         return SizedBox(height: AppHeight.s15);
@@ -169,14 +152,12 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
                         );
                       },
                     ),
-                  ),
+                  ): Expanded(child: AppNoDataErrorWidget(description: context.text.no_absence_found,)),
                 );
               } else if (state is AbsenceErrorState) {
-                return Center(
-                  child: Text('Error: ${state.errorMessage}', style: const TextStyle(color: Colors.red)),
-                );
+                return Expanded(child: AppNoDataErrorWidget(description: state.errorMessage,isError: true,));
               } else {
-                return const Center(child: Text('No absences list found.'));
+                return Expanded(child: AppNoDataErrorWidget(description: context.text.no_absence_found));
               }
             },
           ),
@@ -208,6 +189,16 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
 
   void applyFilters({ String? type,String? startDate, String? endDate,}) {
     BlocProvider.of<AbsenceListBloc>(context).add(FilterAbsencesEvent(type: type,startDate: startDate,endDate: endDate));
+  }
+
+  _fetchDataWithNoScroll(AbsenceSuccessState state){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (scrollController.hasClients &&
+          scrollController.position.maxScrollExtent <= 0 &&
+          state.hasMorePages) {
+        BlocProvider.of<AbsenceListBloc>(context).add(FetchPaginatedAbsenceEvent(_itemsPerPage));
+      }
+    });
   }
 
   void resetFilters() {

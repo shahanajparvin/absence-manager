@@ -6,6 +6,10 @@ extension LocalizationExtension on BuildContext {
   AppLocalizations get text => AppLocalizations.of(this)!;
 }
 
+extension TextThemeExtension on BuildContext {
+  TextTheme get textTheme => Theme.of(this).textTheme;
+}
+
 
 class AppUtils {
   /// Adds a delay for the given duration.
