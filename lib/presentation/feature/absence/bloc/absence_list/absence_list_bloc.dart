@@ -14,9 +14,6 @@ import 'package:injectable/injectable.dart';
 export 'package:absence_manager/domain/usecases/get_absences_usecase.dart';
 
 
-
-
-
 @Injectable()
 class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
   final GetAbsencesUseCase _getAbsencesUseCase;
@@ -155,7 +152,7 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
   Future<void> _onSearchAbsences(SearchAbsencesEvent event, Emitter<AbsenceListState> emit) async {
     emit(AbsenceLoadingState());
 
-    await Future.delayed(const Duration(milliseconds: 100));
+    await Future.delayed(const Duration(milliseconds: 1000));
 
     try {
       final List<ApiResponse<List<Object>>> responses = await Future.wait(<Future<ApiResponse<List<Object>>>>[

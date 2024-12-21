@@ -13,6 +13,7 @@ import 'package:absence_manager/presentation/feature/absence/bloc/filter/absence
 import 'package:absence_manager/presentation/feature/absence/model/absence_list_model.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_filter.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_filter_header.dart';
+import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_list_shimmer.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_search_textfield.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/ansence_list_item.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shimmer/shimmer.dart';
 
 
 
@@ -73,7 +75,6 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
 
       isLoadingNotifier.value = true;
 
-      // Wait for the widget tree to update
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (scrollController.hasClients) {
           scrollController.animateTo(
@@ -116,10 +117,14 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
 
           const Gap(10),
 
+
           BlocBuilder<AbsenceListBloc, AbsenceListState>(
             builder: (BuildContext context, AbsenceListState state) {
-              if (state is AbsenceLoadingState) {
-                return const Center(child: CircularProgressIndicator());
+
+              debugPrint('------state '+state.toString());
+
+              if (state is AbsenceInitial || state is AbsenceLoadingState) {
+                return const AbsenceListShimmer();
               } else if (state is AbsenceSuccessState) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   if (scrollController.hasClients &&
@@ -179,6 +184,8 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
       ),
     );
   }
+
+
 
   _filterIconPressFunctionality(){
     _filterHandler.showFilterDialog(

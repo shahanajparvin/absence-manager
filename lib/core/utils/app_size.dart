@@ -99,6 +99,7 @@ class AppWidth {
   static double s40 = 40.0.w;
   static double s48 = 48.0.w;
   static double s50 = 50.0.w;
+  static double s70 = 70.0.w;
 
 }
 
@@ -120,5 +121,7 @@ class AppRound {
   static double s17 = 17.0.r;
   static double s18 = 18.0.r;
   static double s20 = 20.0.r;
+  static double s100 = 100.0.r;
+
 
 }

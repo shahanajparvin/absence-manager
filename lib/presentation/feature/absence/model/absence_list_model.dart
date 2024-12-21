@@ -14,4 +14,16 @@ class AbsenceListModel{
     required this.endDate,
     required this.status,
   });
+
+  // Placeholder constructor for shimmer effect
+  factory AbsenceListModel.placeholder() {
+    return AbsenceListModel(
+      employeeName: '',
+      startDate: '',
+      endDate: '',
+      status: '',
+      type: '',
+      id: 0,
+    );
+  }
 }

@@ -46,6 +46,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   dropdown_button2: ^2.3.9
   flutter_svg: ^2.0.16
+  shimmer: ^3.0.0
 
 
 
