@@ -12,6 +12,7 @@ class AbsenceListView extends StatelessWidget {
   final ScrollController scrollController;
   final ValueNotifier<bool> isLoadingNotifier;
   final VoidCallback onScroll;
+  final FocusNode focusNode;
 
   const AbsenceListView({
     super.key,
@@ -20,6 +21,7 @@ class AbsenceListView extends StatelessWidget {
     required this.scrollController,
     required this.isLoadingNotifier,
     required this.onScroll,
+    required this.focusNode,
   });
 
   @override
@@ -40,7 +42,6 @@ class AbsenceListView extends StatelessWidget {
         itemCount: absences.length + (hasMorePages ? 1 : 0),
         itemBuilder: (BuildContext context, int index) {
           if (index == absences.length) {
-            // Loading indicator at the end of the list
             return ValueListenableBuilder<bool>(
               valueListenable: isLoadingNotifier,
               builder: (BuildContext context, bool isLoading, Widget? child) {
@@ -54,7 +55,7 @@ class AbsenceListView extends StatelessWidget {
           return AbsenceListItem(
             absence: absence,
             onDetailCallBack: () {
-              FocusScope.of(context).unfocus();
+              focusNode.unfocus();
             },
           );
         },
