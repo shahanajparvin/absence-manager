@@ -11,10 +11,12 @@ import 'package:go_router/go_router.dart';
 
 class AbsenceListItem extends StatelessWidget {
   final AbsenceListModel absence;
+  final VoidCallback onDetailCallBack;
 
 
   const AbsenceListItem(
-      {super.key,required this.absence});
+      {super.key,required this.absence,
+        required this.onDetailCallBack});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,9 @@ class AbsenceListItem extends StatelessWidget {
             context.pushNamed(
               AppRoutes.absenceDetail.name,
               extra: absence.id,
-            );
+            ).then((_) {
+             onDetailCallBack();
+            });;
           },
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Padding(

@@ -9,6 +9,7 @@ import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/a
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_state.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/filter/absence_filter_data_bloc_impl.dart';
 import 'package:absence_manager/presentation/feature/absence/model/absence_list_model.dart';
+import 'package:absence_manager/presentation/feature/absence/ui/widgets/absece_list_view.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_filter.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_filter_header.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_list_shimmer.dart';
@@ -107,7 +108,8 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
                  },
                ),
             ),
-             IconButton(onPressed:_filterIconPressFunctionality,
+             IconButton(
+                 onPressed:_filterIconPressFunctionality,
                  icon: const Icon(Icons.filter))
            ]),
           Gap(AppHeight.s10),
@@ -125,32 +127,12 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
                     return false;
                   },
                   child: state.absences.isNotEmpty?Expanded(
-                    child: ListView.separated(
-                      separatorBuilder: (BuildContext context, int index) {
-                        return SizedBox(height: AppHeight.s15);
-                      },
-                      padding: EdgeInsets.zero,
-                      controller: scrollController,
-                      itemCount: state.absences.length + (state.hasMorePages ? 1 : 0), // Add 1 for loading indicator at the bottom
-                      itemBuilder: (BuildContext context, int index) {
-                        if (index == state.absences.length) {
-                          return ValueListenableBuilder<bool>(
-                            valueListenable: isLoadingNotifier,
-                            builder: (BuildContext context, bool isLoading, Widget? child) {
-                              return isLoading
-                                  ? Container(
-                                  height: 100,
-                                  color: Colors.amber,
-                                  child: const Center(child: CupertinoActivityIndicator()))
-                                  : const SizedBox.shrink();
-                            },
-                          );
-                        }
-                        final AbsenceListModel absence = state.absences[index];
-                        return AbsenceListItem(
-                          absence: absence,
-                        );
-                      },
+                    child: AbsenceListView(
+                      absences: state.absences,
+                      hasMorePages: state.hasMorePages,
+                      scrollController: scrollController,
+                      isLoadingNotifier: isLoadingNotifier,
+                      onScroll: () => _onScroll(context),
                     ),
                   ): Expanded(child: AppNoDataErrorWidget(description: context.text.no_absence_found,)),
                 );
@@ -161,11 +143,19 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
               }
             },
           ),
-        ],
-      ),
+        ]
+      )
     );
   }
 
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    focusNode.dispose();
+    _debounce?.cancel();
+    super.dispose();
+  }
 
 
   _filterIconPressFunctionality(){
