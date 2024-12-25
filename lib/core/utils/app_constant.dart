@@ -33,6 +33,10 @@ class AppConst {
 
   static double buttonRadius = AppHeight.s100;
 
+  static double titleGap = AppHeight.s10;
+
+  static double detailGap = AppHeight.s20;
+
 
 }
 

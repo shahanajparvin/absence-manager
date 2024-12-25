@@ -121,6 +121,7 @@ class AppRound {
   static double s17 = 17.0.r;
   static double s18 = 18.0.r;
   static double s20 = 20.0.r;
+  static double s40 = 40.0.r;
   static double s100 = 100.0.r;
 
 
