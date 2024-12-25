@@ -7,6 +7,7 @@ import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/a
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_event.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/filter/absence_filter_data_bloc_impl.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_filter.dart';
+import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_filter_bottom.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_filter_header.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_list_state_widget.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_searce_filter.dart';
@@ -94,16 +95,37 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
         ),
         context: context,
         dataBloc: absenceFilterDataBloc,
-        onApply: () async {
-          _applyFilters(
-              startDate: absenceFilterDataBloc.startDate,
-              endDate: absenceFilterDataBloc.endDate,
-              type: absenceFilterDataBloc.sickType);
-        },
-        onReset: () async {
-          _resetFilters();
-        });
+        filterBottomWidget: ValueListenableBuilder<bool>(
+         valueListenable: absenceFilterDataBloc.isApplyEnabled,
+         builder: (BuildContext context, bool isApplyEnabled, _) {
+           return AbsenceFilterBottom(
+             onApply: canApply(absenceFilterDataBloc)
+                 ? () {
+               Navigator.of(context).pop();
+               _applyFilters(
+                   startDate: absenceFilterDataBloc.startDate,
+                   endDate: absenceFilterDataBloc.endDate,
+                   type: absenceFilterDataBloc.sickType);
+             }
+                 : null,
+             onReset: canReset(absenceFilterDataBloc)
+                 ? () {
+               Navigator.of(context).pop();
+               absenceFilterDataBloc.resetFilters();
+               _resetFilters();
+             }
+                 : null,
+           );
+         },
+       )
+    );
   }
+
+  bool canApply(FilterDataBloc dataBloc) =>
+      dataBloc.isApplyEnabled.value || dataBloc.hasFilters;
+
+  bool canReset(FilterDataBloc dataBloc) =>
+      dataBloc.isApplyEnabled.value || dataBloc.hasFilters;
 
   void _applyFilters({
     String? type,
