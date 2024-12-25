@@ -5,6 +5,7 @@ import 'package:absence_manager/presentation/feature/absence/bloc/absence_detail
 import 'package:absence_manager/presentation/feature/absence/model/absence_detail_model.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/detail/absence_detail_title.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/detail/absence_detail_value.dart';
+import 'package:absence_manager/presentation/feature/common/widgets/app_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -35,136 +36,131 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
         } else if (state is AbsenceDetailSuccessState) {
           final AbsenceDetailModel detail = state.absenceDetailView;
           return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
+            padding:  EdgeInsets.all(AppWidth.s25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: AppNetworkImage(
+                    imageUrl: detail.employeeProfile,
+                  ),
+                ),
+                Gap(AppConst.detailGap),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Center(
-                      child: CircleAvatar(
-                        radius: AppRound.s40,
-                        backgroundImage: NetworkImage(detail.employeeProfile),
-                        onBackgroundImageError: (_, __) =>
-                             Icon(Icons.person, size: AppWidth.s40),
-                      ),
+                    const AbsenceDetailTitle(
+                      title: 'Name',
+                      iconAsset: AppImage.icName,
                     ),
-                    Gap(AppConst.detailGap),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const AbsenceDetailTitle(
-                          title: 'Name',
-                          iconAsset: AppImage.icName,
-                        ),
-                        Gap(AppConst.titleGap),
-                        AbsenceDetailValue(
-                          value: detail.employeeName,
-                        )
-                      ],
-                    ),
-                    Gap(AppConst.detailGap),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const AbsenceDetailTitle(
-                          title: 'Type of Absence',
-                          iconAsset: AppImage.icAbsenceType,
-                        ),
-                        Gap(AppConst.titleGap),
-                        AbsenceDetailValue(
-                          value: detail.type,
-                        )
-                      ],
-                    ),
-                    Gap(AppConst.detailGap),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const AbsenceDetailTitle(
-                          title: 'Start Date',
-                          iconAsset: AppImage.icStartDate,
-                        ),
-                        Gap(AppConst.titleGap),
-                        AbsenceDetailValue(
-                          value: detail.startDate,
-                        )
-                      ],
-                    ),
-                    Gap(AppConst.detailGap),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const AbsenceDetailTitle(
-                          title: 'End Date',
-                          iconAsset: AppImage.icEndDate,
-                        ),
-                        Gap(AppConst.titleGap),
-                        AbsenceDetailValue(
-                          value: detail.endDate,
-                        )
-                      ],
-                    ),
-                    Gap(AppConst.detailGap),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const AbsenceDetailTitle(
-                          title: 'Total day',
-                          iconAsset: AppImage.icTotalCount,
-                        ),
-                        Gap(AppConst.titleGap),
-                        AbsenceDetailValue(
-                          value: _getTotalDaysCount(
-                              detail.startDate, detail.endDate),
-                        )
-                      ],
-                    ),
-                    Gap(AppConst.detailGap),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const AbsenceDetailTitle(
-                          title: 'Status',
-                          iconAsset: AppImage.icStatus,
-                        ),
-                        Gap(AppConst.titleGap),
-                        AbsenceDetailValue(
-                          value: detail.status,
-                          color: _getStatusColor(detail.status),
-                        )
-                      ],
-                    ),
-                    if (detail.admitterNote.isNotEmpty)
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Gap(AppConst.detailGap),
-                            const AbsenceDetailTitle(
-                              title: 'Admitter Note',
-                              iconAsset: AppImage.icAdmitTerNote,
-                            ),
-                            Gap(AppConst.titleGap),
-                            AbsenceDetailValue(
-                              value: detail.admitterNote,
-                            )
-                          ]),
-                    if (detail.memberNote.isNotEmpty)
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Gap(AppConst.detailGap),
-                            const AbsenceDetailTitle(
-                              title: 'Member Note',
-                              iconAsset: AppImage.icMemberNote,
-                            ),
-                            Gap(AppConst.titleGap),
-                            AbsenceDetailValue(
-                              value: detail.memberNote,
-                            )
-                          ]),
+                    Gap(AppConst.titleGap),
+                    AbsenceDetailValue(
+                      value: detail.employeeName,
+                    )
                   ],
-                )),
+                ),
+                Gap(AppConst.detailGap),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const AbsenceDetailTitle(
+                      title: 'Type of Absence',
+                      iconAsset: AppImage.icAbsenceType,
+                    ),
+                    Gap(AppConst.titleGap),
+                    AbsenceDetailValue(
+                      value: detail.type,
+                    )
+                  ],
+                ),
+                Gap(AppConst.detailGap),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const AbsenceDetailTitle(
+                      title: 'Start Date',
+                      iconAsset: AppImage.icStartDate,
+                    ),
+                    Gap(AppConst.titleGap),
+                    AbsenceDetailValue(
+                      value: detail.startDate,
+                    )
+                  ],
+                ),
+                Gap(AppConst.detailGap),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const AbsenceDetailTitle(
+                      title: 'End Date',
+                      iconAsset: AppImage.icEndDate,
+                    ),
+                    Gap(AppConst.titleGap),
+                    AbsenceDetailValue(
+                      value: detail.endDate,
+                    )
+                  ],
+                ),
+                Gap(AppConst.detailGap),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const AbsenceDetailTitle(
+                      title: 'Total day',
+                      iconAsset: AppImage.icTotalCount,
+                    ),
+                    Gap(AppConst.titleGap),
+                    AbsenceDetailValue(
+                      value: _getTotalDaysCount(
+                          detail.startDate, detail.endDate),
+                    )
+                  ],
+                ),
+                Gap(AppConst.detailGap),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const AbsenceDetailTitle(
+                      title: 'Status',
+                      iconAsset: AppImage.icStatus,
+                    ),
+                    Gap(AppConst.titleGap),
+                    AbsenceDetailValue(
+                      value: detail.status,
+                      color: _getStatusColor(detail.status),
+                    )
+                  ],
+                ),
+                if (detail.admitterNote.isNotEmpty)
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Gap(AppConst.detailGap),
+                        const AbsenceDetailTitle(
+                          title: 'Admitter Note',
+                          iconAsset: AppImage.icAdmitTerNote,
+                        ),
+                        Gap(AppConst.titleGap),
+                        AbsenceDetailValue(
+                          value: detail.admitterNote,
+                        )
+                      ]),
+                if (detail.memberNote.isNotEmpty)
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Gap(AppConst.detailGap),
+                        const AbsenceDetailTitle(
+                          title: 'Member Note',
+                          iconAsset: AppImage.icMemberNote,
+                        ),
+                        Gap(AppConst.titleGap),
+                        AbsenceDetailValue(
+                          value: detail.memberNote,
+                        )
+                      ]),
+              ],
+            ),
           );
         } else if (state is AbsenceDetailErrorState) {
           return Center(
