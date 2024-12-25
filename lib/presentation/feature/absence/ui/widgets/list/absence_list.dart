@@ -82,6 +82,10 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
     });
   }
 
+  void _resetFilters() {
+    BlocProvider.of<AbsenceListBloc>(context).add(ResetFiltersEvent());
+  }
+
   void _triggerSearch(String query) {
     BlocProvider.of<AbsenceListBloc>(context)
         .add(SearchAbsencesEvent(searchText: query));
@@ -95,48 +99,8 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
         ),
         context: context,
         dataBloc: absenceFilterDataBloc,
-        filterBottomWidget: ValueListenableBuilder<bool>(
-         valueListenable: absenceFilterDataBloc.isApplyEnabled,
-         builder: (BuildContext context, bool isApplyEnabled, _) {
-           return AbsenceFilterBottom(
-             onApply: canApply(absenceFilterDataBloc)
-                 ? () {
-               Navigator.of(context).pop();
-               _applyFilters(
-                   startDate: absenceFilterDataBloc.startDate,
-                   endDate: absenceFilterDataBloc.endDate,
-                   type: absenceFilterDataBloc.sickType);
-             }
-                 : null,
-             onReset: canReset(absenceFilterDataBloc)
-                 ? () {
-               Navigator.of(context).pop();
-               absenceFilterDataBloc.resetFilters();
-               _resetFilters();
-             }
-                 : null,
-           );
-         },
-       )
-    );
-  }
-
-  bool canApply(FilterDataBloc dataBloc) =>
-      dataBloc.isApplyEnabled.value || dataBloc.hasFilters;
-
-  bool canReset(FilterDataBloc dataBloc) =>
-      dataBloc.isApplyEnabled.value || dataBloc.hasFilters;
-
-  void _applyFilters({
-    String? type,
-    String? startDate,
-    String? endDate,
-  }) {
-    BlocProvider.of<AbsenceListBloc>(context).add(FilterAbsencesEvent(
-        type: type, startDate: startDate, endDate: endDate));
-  }
-
-  void _resetFilters() {
-    BlocProvider.of<AbsenceListBloc>(context).add(ResetFiltersEvent());
+        filterBottomWidget: AbsenceFilterBottomWidget(
+          absenceFilterDataBloc: absenceFilterDataBloc,
+        ));
   }
 }
