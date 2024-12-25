@@ -1,6 +1,6 @@
 import 'package:absence_manager/core/utils/app_color.dart';
 import 'package:absence_manager/core/utils/app_size.dart';
-import 'package:absence_manager/presentation/feature/absence/ui/widgets/round_rectangle.dart';
+import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/round_rectangle.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';

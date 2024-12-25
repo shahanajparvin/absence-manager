@@ -1,8 +1,6 @@
-import 'package:absence_manager/core/utils/app_color.dart';
-import 'package:absence_manager/core/utils/app_size.dart';
 import 'package:absence_manager/presentation/feature/absence/model/absence_list_model.dart';
-import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_list_loading.dart';
-import 'package:absence_manager/presentation/feature/absence/ui/widgets/ansence_list_item.dart';
+import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_list_loading.dart';
+import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/ansence_list_item.dart';
 import 'package:flutter/cupertino.dart';
 
 

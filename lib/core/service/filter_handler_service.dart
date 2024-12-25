@@ -1,5 +1,5 @@
 import 'package:absence_manager/core/service/app_dialog_service.dart';
-import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_filter_bottom.dart';
+import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_filter_bottom.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 

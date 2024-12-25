@@ -1,9 +1,6 @@
-import 'package:absence_manager/core/utils/app_color.dart';
-import 'package:absence_manager/core/utils/app_image.dart';
 import 'package:absence_manager/core/utils/app_size.dart';
-import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_filter_icon.dart';
-import 'package:absence_manager/presentation/feature/absence/ui/widgets/absence_search_textfield.dart';
-import 'package:absence_manager/presentation/feature/common/widgets/app_icon.dart';
+import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_filter_icon.dart';
+import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_search_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
