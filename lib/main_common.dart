@@ -1,52 +1,66 @@
 import 'package:absence_manager/core/di/injector.dart';
 import 'package:absence_manager/core/flavor/flavor_config.dart';
 import 'package:absence_manager/core/route/app_route.dart';
+import 'package:absence_manager/core/utils/app_settings.dart';
 import 'package:absence_manager/core/utils/app_theme.dart';
+import 'package:absence_manager/domain/entities/language.dart';
+import 'package:absence_manager/presentation/feature/lanuage/bloc/language_bloc.dart';
+import 'package:absence_manager/presentation/feature/lanuage/bloc/language_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+late AppLocalizations localizations;
+late AppSettings appSettings;
+
 Future<void> mainCommon(FlavorConfig config) async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
+  appSettings = await AppSettings.create();
   runApp(const MyApp());
+}
+
+Future<void> updateLocalization(Language language) async {
+  localizations = await AppLocalizations.delegate.load(language.locale);
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        if (constraints.maxWidth != 0&&constraints.maxHeight!=0) {
-          return ScreenUtilInit(
-            designSize: const Size(375, 947),
-            minTextAdapt: true,
-            splitScreenMode: true,
-            builder: (_, Widget? child) => _buildMaterialApp(),
-          );
-        }
-        return const SizedBox();
-      },
+    return ScreenUtilInit(
+      designSize: const Size(375, 947),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_, __) => BlocProvider(
+        create: (_) => LanguageBloc(appSettings.getSelectedLanguage()),
+        child: const AppMaterial(),
+      ),
     );
   }
+}
 
-  Widget _buildMaterialApp() {
-    return MaterialApp.router(
-        localizationsDelegates: const <LocalizationsDelegate>[
+class AppMaterial extends StatelessWidget {
+  const AppMaterial({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LanguageBloc, LanguageState>(
+      builder: (context, state) => MaterialApp.router(
+        localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: AppLocalizations.supportedLocales,
-        locale: const Locale('de', 'DE'),
+        locale: state.selectedLanguage.locale,
         theme: appTheme,
-        routerConfig: router
+        routerConfig: router,
+      ),
     );
   }
 }
-
-
-
