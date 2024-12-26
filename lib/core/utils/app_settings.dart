@@ -5,15 +5,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 @Injectable()
 class AppSettings {
-  late final SharedPreferences _prefs;
+  final SharedPreferences _prefs;
 
 
-  AppSettings._(this._prefs);
-
+  AppSettings(this._prefs);
 
   static Future<AppSettings> create() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return AppSettings._(prefs);
+    return AppSettings(prefs);
   }
 
   Future<void> setSelectedLanguage(Language language) async {

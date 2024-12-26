@@ -10,6 +10,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 import '../../domain/repository/absence_manager_repository.dart' as _i702;
 import '../../domain/usecases/get_absences_usecase.dart' as _i237;
@@ -24,6 +25,7 @@ import '../data/repository/absence_manager_repository_impl.dart' as _i1070;
 import '../service/app_dialog_service.dart' as _i513;
 import '../service/filter_handler_service.dart' as _i1034;
 import '../utils/app_modal_controller.dart' as _i553;
+import '../utils/app_settings.dart' as _i270;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -42,6 +44,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i846.AbsenceFilterDataBloc());
     gh.factory<_i1034.FilterHandler>(
         () => _i1034.FilterHandler(gh<_i513.AppDialogService>()));
+    gh.factory<_i270.AppSettings>(
+        () => _i270.AppSettings(gh<_i460.SharedPreferences>()));
     gh.lazySingleton<_i702.AbsenceManagerRepository>(
         () => _i1070.AbsenceManagerRepositoryImpl());
     gh.factory<_i237.GetAbsencesUseCase>(
