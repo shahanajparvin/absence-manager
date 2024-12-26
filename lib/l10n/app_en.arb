@@ -12,7 +12,23 @@
   "general_error_message" : "Something went wrong!",
   "retry" : "Retry",
   "no_absence_found":"No absences list found.",
+  "select_preferred_language" : "Please select your preferred language",
+  "search_leave_by_name" : "Search Leave By Employee Name",
+  "name" : "Name",
+  "type_of_absence" : "Type of Absence",
+  "start_date": "Start Date",
+  "end_date" : "end_date",
+  "total_count": "Total Day",
+  "status" : "Status",
+  "admitter_note" : "Admitter Note",
+  "member_note" : "Member Note",
+  "filter": "Filter",
+  "apply" : "Apply",
+  "reset": "Reset",
+  "select_type" :"Select Type",
+  "select_date" : "Select Date",
   "english" : "English",
   "german" : "German",
-  "select_preferred_language" : "Please select your preferred language"
+  "change" : "Change"
+
 }

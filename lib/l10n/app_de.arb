@@ -9,6 +9,27 @@
   "reject": "Abgelehnt",
   "pending": "Ausstehend",
   "sickness": "Krankheit",
-  "vacation": "Urlaub"
+  "vacation": "Urlaub",
+  "general_error_message" : "Etwas ist schiefgelaufen!",
+  "retry" : "Erneut versuchen",
+  "no_absence_found" : "Keine Abwesenheitsliste gefunden.",
+  "select_preferred_language" : "Bitte wählen Sie Ihre bevorzugte Sprache",
+  "search_leave_by_name" : "Urlaub nach Mitarbeitername suchen",
+  "name" : "Name",
+  "type_of_absence" : "Art der Abwesenheit",
+  "start_date": "Startdatum",
+  "end_date" : "Enddatum",
+  "total_count": "Gesamttage",
+  "status" : "Status",
+  "admitter_note" : "Anmerkung des Anmelders",
+  "member_note" : "Anmerkung des Mitglieds",
+  "filter": "Filter",
+  "apply" : "Anwenden",
+  "reset": "Zurücksetzen",
+  "select_type" : "Typ auswählen",
+  "select_date" : "Datum auswählen",
+  "english" : "Englisch",
+  "german" : "Deutsch",
+  "change" : "Ändern"
 
 }
