@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 
 enum Language {
-  german("de", "German"), english("en", "English");
+  german('de', 'German'), english('en', 'English');
 
   final String languageCode;
   final String languageName;
@@ -14,30 +14,30 @@ enum Language {
 
   static Language getLanguageByName(String languageName) {
     switch (languageName) {
-      case "German": return Language.german;
-      case "English": return Language.english;
+      case 'German': return Language.german;
+      case 'English': return Language.english;
       default: return Language.german;
     }
   }
 
   static Language getLanguageByCode(String code) {
     switch (code) {
-      case "de": return Language.german;
-      case "en": return Language.english;
+      case 'de': return Language.german;
+      case 'en': return Language.english;
       default: return Language.german;
     }
   }
 
   static String getLocalizedLanguageName(BuildContext context, String code) {
     switch (code) {
-      case "de": return context.text.german;
-      case "en": return context.text.english;
+      case 'de': return context.text.german;
+      case 'en': return context.text.english;
       default: return context.text.german;
     }
   }
 
   List<String> getLanguageNames() {
-    return [Language.german.languageName, Language.english.languageName];
+    return <String>[Language.german.languageName, Language.english.languageName];
   }
 
   Locale get locale {

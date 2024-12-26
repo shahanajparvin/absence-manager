@@ -30,9 +30,9 @@ class AppDialogService {
           filterX: filterX,
           filterY: filterY,
           child: ChildDialog(
-            child: child,
             bottomChild: bottomChild,
             headerWidget: headerWidget,
+            child: child,
           ),
         );
       },
@@ -57,7 +57,7 @@ class BlurredBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: [
+      children: <Widget>[
         BackdropFilter(
           filter: ImageFilter.blur(sigmaX: filterX, sigmaY: filterY),
           child: Container(
@@ -93,20 +93,19 @@ class ChildDialog extends StatelessWidget {
       child: Container(
         padding:  EdgeInsets.all(AppConst.formPadding),
         decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: <Widget>[
             _buildHeader(context),
              Gap(AppHeight.s15),
             child,
             if (bottomChild != null)
               Padding(
                 padding:  EdgeInsets.only(top: AppHeight.s15),
-                child: bottomChild!,
+                child: bottomChild,
               ),
           ],
         ),
@@ -117,7 +116,7 @@ class ChildDialog extends StatelessWidget {
   Widget _buildHeader(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
+      children: <Widget>[
         if (headerWidget != null) headerWidget!,
         CloseIconWidget(onPressed: () => Navigator.of(context).pop()),
       ],

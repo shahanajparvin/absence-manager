@@ -23,23 +23,23 @@ class AbsenceListViewAdapter {
   }
 
   Map<int, String> _createMemberMap(){
-    final Map<int, String> memberMap = {for (final Member member in members) member.userId: member.name};
+    final Map<int, String> memberMap = <int, String>{for (final Member member in members) member.userId: member.name};
     return memberMap;
   }
 
 
   String _getEmployeeName( Map<int, String> memberMap, int userId){
-    final String employeeName = memberMap[userId] ?? "Unknown";
+    final String employeeName = memberMap[userId] ?? 'Unknown';
     return employeeName;
   }
 
   String _getAbsenceStatus(Absence absence) {
     if (absence.confirmedAt != null) {
-      return "confirmed";
+      return 'confirmed';
     } else if (absence.rejectedAt != null) {
-      return "rejected";
+      return 'rejected';
     } else {
-      return "pending";
+      return 'pending';
     }
   }
 

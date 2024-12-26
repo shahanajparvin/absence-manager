@@ -23,8 +23,9 @@ final GoRouter router = GoRouter(
         name: AppRoutes.absenceDetail.name,
         builder: (BuildContext context, GoRouterState state) {
           return AbsenceDetailPage(
-             absenceId: state.extra! as int,
+            absenceId: state.extra! as int,
           );
-        }),
+        },),
   ],
 );
+

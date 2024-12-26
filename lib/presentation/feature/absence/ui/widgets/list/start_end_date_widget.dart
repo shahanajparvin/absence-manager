@@ -18,7 +18,7 @@ class StartEndDateWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment : CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
+      children: <Widget>[
         AppDateClassWidget(date: startedOn,label: context.text.started_on,),
         Gap(AppHeight.s6),
         AppDateClassWidget(date: endOn,label: context.text.ended_on,),
@@ -38,7 +38,7 @@ class AppDateClassWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-        children: [
+        children: <Widget>[
           Text('$label:',style: Theme.of(context)
               .textTheme
               .labelSmall

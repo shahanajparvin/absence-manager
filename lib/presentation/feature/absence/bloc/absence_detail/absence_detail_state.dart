@@ -1,5 +1,4 @@
 import 'package:absence_manager/presentation/feature/absence/model/absence_detail_model.dart';
-import 'package:absence_manager/presentation/feature/absence/model/absence_list_model.dart';
 
 abstract class AbsenceDetailState {}
 

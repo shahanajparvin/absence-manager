@@ -17,7 +17,7 @@ class AbsenceManagerRepositoryImpl extends AbsenceManagerRepository {
     return ApiExceptionHandlingService().handleApiCall(() async {
       final List<dynamic>? data = await absences();
       if (data != null && data.isNotEmpty) {
-        final List<Absence> absenceList = data.map((json) {
+        final List<Absence> absenceList = data.map((dynamic json) {
           return Absence.fromJson(json as Map<String, dynamic>);
         }).toList();
         return SuccessResponse<List<Absence>>(
@@ -38,7 +38,7 @@ class AbsenceManagerRepositoryImpl extends AbsenceManagerRepository {
     return ApiExceptionHandlingService().handleApiCall(() async {
       final List<dynamic>? data = await members();
       if (data != null && data.isNotEmpty) {
-        final List<Member> members = data.map((json) {
+        final List<Member> members = data.map((dynamic json) {
           return Member.fromJson(json as Map<String, dynamic>);
         }).toList();
         return SuccessResponse<List<Member>>(

@@ -1,7 +1,6 @@
 import 'package:absence_manager/core/network/api_response.dart';
 import 'package:absence_manager/domain/entities/absence/absence.dart';
 import 'package:absence_manager/domain/entities/member/member.dart';
-import 'package:absence_manager/domain/usecases/get_absences_usecase.dart';
 import 'package:absence_manager/domain/usecases/get_members_usecase.dart';
 import 'package:absence_manager/presentation/feature/absence/adapter/ansence_detail_view_adapter.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_detail/absence_detail_bloc.dart';
@@ -50,7 +49,7 @@ class AbsenceDetailBloc extends Bloc<AbsenceDetailEvent, AbsenceDetailState> {
 
         if(absence!=null){
           final Member? member = _findMemberById(members.data!, absence.userId);
-          final AbsenceDetailModel absenceDetailsView = await _adaptAbsenceDetailData(absence, member!);
+          final AbsenceDetailModel absenceDetailsView =  _adaptAbsenceDetailData(absence, member!);
           emit(AbsenceDetailSuccessState(absenceDetailsView));
         }
 
@@ -94,10 +93,10 @@ class AbsenceDetailBloc extends Bloc<AbsenceDetailEvent, AbsenceDetailState> {
   String _getErrorMessage(
       ApiResponse<List<Absence>> absences,
       ApiResponse<List<Member>> members) {
-    if (absences is ErrorResponse) {
-      return (absences as ErrorResponse).errorMessage;
-    } else if (members is ErrorResponse) {
-      return(members as ErrorResponse).errorMessage;
+    if (absences is ErrorResponse<List<Absence>>) {
+      return absences.errorMessage;
+    } else if (members is ErrorResponse<List<Member>>) {
+      return members.errorMessage;
     } else {
       return 'Unknown error';
     }

@@ -1,4 +1,5 @@
 import 'package:absence_manager/core/network/api_response.dart';
+import 'package:absence_manager/core/utils/core_utils.dart';
 import 'package:absence_manager/domain/entities/absence/absence.dart';
 import 'package:absence_manager/domain/entities/member/member.dart';
 import 'package:absence_manager/domain/usecases/get_absences_usecase.dart';
@@ -31,10 +32,10 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
   }
 
   Future<void> _onFetchAbsences(
-      GetAbsencesWithMembersEvent event, Emitter<AbsenceListState> emit) async {
+      GetAbsencesWithMembersEvent event, Emitter<AbsenceListState> emit,) async {
     emit(AbsenceLoadingState());
 
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await AppUtils.delay(const Duration(milliseconds: 1000));
 
     try {
       final List<ApiResponse<List<Object>>> responses = await Future.wait(<Future<ApiResponse<List<Object>>>>[
@@ -46,13 +47,13 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
       final ApiResponse<List<Member>> members = responses[1] as ApiResponse<List<Member>>;
 
       if (absences is SuccessResponse<List<Absence>> && members is SuccessResponse<List<Member>>) {
-        final List<AbsenceListModel> list = await _adaptAbsencesData(absences.data!, members.data!);
+        final List<AbsenceListModel> list =  _adaptAbsencesData(absences.data!, members.data!);
         emit(AbsenceSuccessState(list));
       } else {
         final String errorMessage = _getErrorMessage(absences, members);
         emit(AbsenceErrorState(errorMessage));
       }
-    } catch (e, stackTrace) {
+    } catch (e) {
       emit(AbsenceErrorState('An unexpected error occurred'));
     }
   }
@@ -83,7 +84,7 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
         final int endIndex = startIndex + itemsToLoad;
 
         final List<Absence> paginatedAbsences = absences.data!.sublist(
-            startIndex, endIndex > absences.data!.length ? absences.data!.length : endIndex);
+            startIndex, endIndex > absences.data!.length ? absences.data!.length : endIndex,);
 
         final List<AbsenceListModel> list =  _adaptAbsencesData(paginatedAbsences, members.data!);
 
@@ -99,7 +100,7 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
          emit(AbsenceSuccessState(
           totalAbsences, // Add the new data to the existing list
           hasMorePages: _hasMorePages,
-        ));
+        ),);
       } else {
         final String errorMessage = _getErrorMessage(absences, members);
         emit(AbsenceErrorState(errorMessage));
@@ -112,11 +113,11 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
 
 
   Future<void> _onFilterAbsences(
-      FilterAbsencesEvent event, Emitter<AbsenceListState> emit) async {
+      FilterAbsencesEvent event, Emitter<AbsenceListState> emit,) async {
 
     emit(AbsenceLoadingState());
 
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await AppUtils.delay(const Duration(milliseconds: 1000));
 
     try {
       final List<ApiResponse<List<Object>>> responses = await Future.wait(<Future<ApiResponse<List<Object>>>>[
@@ -133,7 +134,7 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
           absences:absences.data! ,
           type: event.type?.toLowerCase(),
           startDate: event.startDate,
-          endDate: event.endDate
+          endDate: event.endDate,
         );
 
         final List<AbsenceListModel> list =  _adaptAbsencesData(filteredAbsences, members.data!);
@@ -143,7 +144,7 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
         final String errorMessage = _getErrorMessage(absences, members);
         emit(AbsenceErrorState(errorMessage));
       }
-    } catch (e, stackTrace) {
+    } catch (e) {
       emit(AbsenceErrorState('An unexpected error occurred'));
     }
   }
@@ -152,7 +153,7 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
   Future<void> _onSearchAbsences(SearchAbsencesEvent event, Emitter<AbsenceListState> emit) async {
     emit(AbsenceLoadingState());
 
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await AppUtils.delay(const Duration(milliseconds: 1000));
 
     try {
       final List<ApiResponse<List<Object>>> responses = await Future.wait(<Future<ApiResponse<List<Object>>>>[
@@ -184,7 +185,7 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
         final String errorMessage = _getErrorMessage(absences, members);
         emit(AbsenceErrorState(errorMessage));
       }
-    } catch (e, stackTrace) {
+    } catch (e) {
       emit(AbsenceErrorState('An unexpected error occurred'));
     }
   }
@@ -218,7 +219,7 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
 
   List<AbsenceListModel> _adaptAbsencesData(
       List<Absence> absences,
-      List<Member> members)  {
+      List<Member> members,)  {
 
     final AbsenceListViewAdapter adapter = AbsenceListViewAdapter(
       absences: absences,
@@ -233,11 +234,11 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
 
   String _getErrorMessage(
       ApiResponse<List<Absence>> absences,
-      ApiResponse<List<Member>> members) {
-    if (absences is ErrorResponse) {
-      return (absences as ErrorResponse).errorMessage;
-    } else if (members is ErrorResponse) {
-      return(members as ErrorResponse).errorMessage;
+      ApiResponse<List<Member>> members,) {
+    if (absences is ErrorResponse<List<Absence>>) {
+      return absences.errorMessage;
+    } else if (members is ErrorResponse<List<Member>>) {
+      return members.errorMessage;
     } else {
       return 'Unknown error';
     }

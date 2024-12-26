@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 947),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_, __) => BlocProvider(
+      builder: (_, __) => BlocProvider<LanguageBloc>(
         create: (_) => LanguageBloc(appSettings.getSelectedLanguage()),
         child: const AppMaterial(),
       ),
@@ -49,14 +49,14 @@ class AppMaterial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LanguageBloc, LanguageState>(
-      builder: (context, state) => MaterialApp.router(
-        localizationsDelegates: const [
+      builder: (BuildContext context, LanguageState state) => MaterialApp.router(
+        supportedLocales: AppLocalizations.supportedLocales,
+        localizationsDelegates:   const <LocalizationsDelegate<dynamic>>[
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
         ],
-        supportedLocales: AppLocalizations.supportedLocales,
         locale: state.selectedLanguage.locale,
         theme: appTheme,
         routerConfig: router,

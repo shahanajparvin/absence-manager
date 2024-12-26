@@ -36,9 +36,9 @@ class LanguageViewItem extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: AppWidth.s2,vertical: AppHeight.s5),
           child: Row(
               mainAxisAlignment : MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               Row(
-                children: [
+                children: <Widget>[
                   Image(
                     image: AssetImage(icon),
                     width: AppWidth.s32,

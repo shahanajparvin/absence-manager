@@ -34,12 +34,12 @@ class _AppDropDownState extends State<AppDropDown>
   void initState() {
     super.initState();
     if (widget.initialValue != null &&
-        !widget.items.any((item) =>
+        !widget.items.any((String item) =>
         item.toLowerCase() == widget.initialValue!.toLowerCase())) {
       selectedValue = null;
     } else if(widget.initialValue != null){
       selectedValue = widget.items.firstWhere(
-              (item) => item.toLowerCase() == widget.initialValue!.toLowerCase());
+              (String item) => item.toLowerCase() == widget.initialValue!.toLowerCase());
     }
   }
 
@@ -63,7 +63,7 @@ class _AppDropDownState extends State<AppDropDown>
           width: double.infinity,
           child: DropdownButtonFormField2<String>(
             alignment: AlignmentDirectional.topStart,  // Align button to start
-            onMenuStateChange: (isOpen) {
+            onMenuStateChange: (bool isOpen) {
               _isDropdownOpen = !_isDropdownOpen;
               if (isOpen) {
                 _isDropdownOpen = true;
@@ -136,10 +136,10 @@ class _AppDropDownState extends State<AppDropDown>
 
 List<DropdownMenuItem<String>> _addDividersAfterItems(
     List<String> items, BuildContext context) {
-  final List<DropdownMenuItem<String>> menuItems = [];
+  final List<DropdownMenuItem<String>> menuItems = <DropdownMenuItem<String>>[];
   for (final String item in items) {
     menuItems.addAll(
-      [
+      <DropdownMenuItem<String>>[
         DropdownMenuItem<String>(
           value: item,
           child: Padding(
@@ -166,7 +166,7 @@ List<DropdownMenuItem<String>> _addDividersAfterItems(
 }
 
 List<double> _getCustomItemsHeights(List<String> items) {
-  final List<double> itemsHeights = [];
+  final List<double> itemsHeights = <double>[];
   for (int i = 0; i < (items.length * 2) - 1; i++) {
     if (i.isEven) {
       itemsHeights.add(AppHeight.s42);

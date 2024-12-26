@@ -2,12 +2,9 @@ import 'package:absence_manager/core/utils/app_color.dart';
 import 'package:absence_manager/core/utils/app_constant.dart';
 import 'package:absence_manager/core/utils/app_size.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-
 
 
 mixin InputDecorationMixin {
-
 
   InputDecoration customInputDecoration({
     String? labelText,
@@ -21,7 +18,7 @@ mixin InputDecorationMixin {
     bool isCollapsed = true,
     BorderRadius? borderRadius,
     Color? borderColor,
-    required BuildContext context
+    required BuildContext context,
 
   }) {
     return InputDecoration(
@@ -42,14 +39,6 @@ mixin InputDecorationMixin {
       prefix:  isNoPrefixPadding!=null?null:Padding(padding: EdgeInsets.only(left: AppConst.textFieldHorizontalPadding)),
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
-      prefixIconConstraints: const BoxConstraints(
-        minWidth: 0,
-        minHeight: 0,
-      ),
-      suffixIconConstraints: const BoxConstraints(
-        minWidth: 0,
-        minHeight: 0,
-      ),
       constraints: BoxConstraints(
         maxHeight: AppConst.textFieldHeight,
         minHeight: AppHeight.s40,
@@ -59,9 +48,9 @@ mixin InputDecorationMixin {
 
   Widget textFieldLabel(
       {required BuildContext context,
-        required String? label}) {
+        required String? label,}) {
     return  Text(
-      label ?? "",
+      label!,
       style: Theme.of(context).textTheme.labelLarge,
     );
   }

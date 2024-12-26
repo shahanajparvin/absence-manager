@@ -42,7 +42,7 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
             padding:  EdgeInsets.all(AppWidth.s25),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: <Widget>[
                 Center(
                   child: AppNetworkImage(
                     imageUrl: detail.employeeProfile,
@@ -51,7 +51,7 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                 Gap(AppConst.detailGap),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                      AbsenceDetailTitle(
                       title: context.text.name,
                       iconAsset: AppImage.icName,
@@ -65,7 +65,7 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                 Gap(AppConst.detailGap),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                      AbsenceDetailTitle(
                       title: context.text.type_of_absence,
                       iconAsset: AppImage.icAbsenceType,
@@ -79,7 +79,7 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                 Gap(AppConst.detailGap),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                      AbsenceDetailTitle(
                       title: context.text.start_date,
                       iconAsset: AppImage.icStartDate,
@@ -93,7 +93,7 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                 Gap(AppConst.detailGap),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                      AbsenceDetailTitle(
                       title: context.text.end_date,
                       iconAsset: AppImage.icEndDate,
@@ -107,7 +107,7 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                 Gap(AppConst.detailGap),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                      AbsenceDetailTitle(
                       title: context.text.total_count,
                       iconAsset: AppImage.icTotalCount,
@@ -115,14 +115,14 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                     Gap(AppConst.titleGap),
                     AbsenceDetailValue(
                       value: _getTotalDaysCount(
-                          detail.startDate, detail.endDate),
+                          detail.startDate, detail.endDate, ),
                     )
                   ],
                 ),
                 Gap(AppConst.detailGap),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                      AbsenceDetailTitle(
                       title: context.text.status,
                       iconAsset: AppImage.icStatus,
@@ -137,7 +137,7 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                 if (detail.admitterNote.isNotEmpty)
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         Gap(AppConst.detailGap),
                          AbsenceDetailTitle(
                           title: context.text.admitter_note,
@@ -151,7 +151,7 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                 if (detail.memberNote.isNotEmpty)
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         Gap(AppConst.detailGap),
                          AbsenceDetailTitle(
                           title: context.text.member_note,

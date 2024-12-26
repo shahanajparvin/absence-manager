@@ -1,6 +1,5 @@
 
 class ErrorMessages {
-
   static const String generalError = 'An unexpected error occurred.';
   static const String requestTimeout = 'The request timed out.';
   static const String invalidResponseFormat = 'The response format is invalid or corrupted. Please try again later.';

@@ -49,13 +49,13 @@ class _AbsenceListPageState extends State<AbsenceListPage> {
                     context.text.absence_manager,
                     style: context.textTheme.displayMedium,
                   )),
-              actions: [
+              actions: <Widget>[
                 TranslateIcon(
                   modalController: modalController,
                   appSettings: appSettings,
                   changeLanguageView: changeLanguageView,
                   modalContext: context,
-                )
+                ),
               ],
             ),
             body: BlocProvider<AbsenceListBloc>(

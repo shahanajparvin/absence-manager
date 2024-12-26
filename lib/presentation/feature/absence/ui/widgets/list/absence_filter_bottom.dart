@@ -88,7 +88,7 @@ class AbsenceFilterBottomChild extends StatelessWidget {
       padding: EdgeInsets.only(top: AppHeight.s20),
       height: AppConst.filterBottomHeight+AppHeight.s20 ,
       child: Row(
-        children: [
+        children: <Widget>[
           AppButton(
               labelColor: onApply==null?AppColor.themeDeepBlackColor:null,
               onPressed: onApply, // Call the onApply callback

@@ -17,11 +17,11 @@ class SuccessResponse<T> extends ApiResponse<T> {
 
 class ErrorResponse<T> extends ApiResponse<T> {
   const ErrorResponse({
-    required int statusCode,
+    required super.statusCode,
     required this.errorMessage,
     this.exception,
-    String? message,
-  }) : super(statusCode: statusCode, message: message);
+    super.message,
+  });
   final String errorMessage;
   final Exception? exception;
 }
@@ -29,15 +29,17 @@ class ErrorResponse<T> extends ApiResponse<T> {
 class UndefinedErrorResponse<T> extends ErrorResponse<T> {
   const UndefinedErrorResponse({
     this.error = 'An undefined error occurred',
-    this.exception,
+    this.exception1,
   }) : super(
-          statusCode: UndefinedErrorCode,
+          statusCode: undefinedErrorCode,
           errorMessage: error,
-          exception: exception,
+          exception: exception1,
         );
 
-  static const int UndefinedErrorCode = -100;
+  static const int undefinedErrorCode = -100;
 
   final String error;
-  final Exception? exception;
+
+
+  final Exception? exception1;
 }

@@ -29,7 +29,7 @@ class AppNoDataErrorWidget extends StatelessWidget {
             child: Column(
               mainAxisAlignment : MainAxisAlignment.center,
               mainAxisSize : MainAxisSize.min,
-              children: [
+              children: <Widget>[
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: AspectRatio(
@@ -75,10 +75,9 @@ class InfoWidget extends StatelessWidget {
       constraints: const BoxConstraints(maxWidth: 400),
       alignment: Alignment.center,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize : MainAxisSize.min,
-        children: [
+        children: <Widget>[
           if (description != null)
             Text(
               description!,
@@ -93,8 +92,9 @@ class InfoWidget extends StatelessWidget {
   }
 }
 
-const errorIllistration =
-    '''<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+const String errorIllistration =
+    '''
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M378 809C154.5 782.5 232.5 494.5 421.5 546.5C446.5 275.5 820.5 310.5 805.5 576.5C954.5 538.5 1029.5 763.5 851 807L378 809Z" fill="#DDDDDD"/>
 <path d="M316.5 784C293.933 783.993 271.726 778.35 251.893 767.584C232.061 756.817 215.231 741.268 202.933 722.347C190.634 703.426 183.256 681.734 181.467 659.238C179.679 636.742 183.537 614.156 192.692 593.53C201.847 572.904 216.008 554.891 233.891 541.126C251.773 527.361 272.81 518.281 295.092 514.708C317.374 511.136 340.196 513.186 361.485 520.671C382.774 528.156 401.856 540.839 417 557.57" stroke="#0E0E0E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M360.5 520.5C360.5 413.91 446.91 332.5 553.5 332.5C660.09 332.5 746.5 418.91 746.5 525.5C746.521 545.524 743.424 565.429 737.32 584.5" stroke="#0E0E0E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -133,7 +133,7 @@ const errorIllistration =
 </svg>
 ''';
 
-const noResultIllistration = '''
+const String noResultIllistration = '''
 <svg width="192" height="169" viewBox="0 0 192 169" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M95.6313 132.935C96.509 132.935 97.2205 132.224 97.2205 131.346C97.2205 130.469 96.509 129.757 95.6313 129.757C94.7535 129.757 94.042 130.469 94.042 131.346C94.042 132.224 94.7535 132.935 95.6313 132.935Z" fill="#CFCFCF"/>
 <path d="M49.459 13.2803V20.254" stroke="#BABABA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>

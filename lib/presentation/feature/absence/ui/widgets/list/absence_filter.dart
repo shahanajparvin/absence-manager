@@ -18,7 +18,7 @@ class AbsenceFilter extends StatefulWidget {
 class _AbsenceFilterState extends State<AbsenceFilter> {
   DateTimeRange? selectedDateRange;
   String? selectedType;
-  final List<String> absenceTypes = ['All', 'Vacation', 'Sickness',];
+  final List<String> absenceTypes = <String>['All', 'Vacation', 'Sickness',];
   final TextEditingController _startDateController = TextEditingController();
   final TextEditingController _endDateController = TextEditingController();
 
@@ -39,7 +39,7 @@ class _AbsenceFilterState extends State<AbsenceFilter> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize : MainAxisSize.min,
-      children: [
+      children: <Widget>[
         AppDropDown(
           initialValue: widget.dataBloc.sickType,
           items: absenceTypes,

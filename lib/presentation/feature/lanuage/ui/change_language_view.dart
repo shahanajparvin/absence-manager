@@ -50,7 +50,6 @@ class ChangeLanguageViewState extends State<ChangeLanguageView> {
           horizontal: AppWidth.s15, vertical: AppHeight.s20),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Padding(
             padding:  EdgeInsets.symmetric(horizontal: AppWidth.s5),
@@ -83,7 +82,7 @@ class ChangeLanguageViewState extends State<ChangeLanguageView> {
               backGroundColor: AppColor.themeColor,
               label: context.text.change,
               onPressed: () async {
-                final Language lang = Language.getLanguageByCode((selectedLanguage.languageCode));
+                final Language lang = Language.getLanguageByCode(selectedLanguage.languageCode);
                 await widget.appSettings.setSelectedLanguage(lang);
                 updateLocalization(lang);
                 if(context.mounted){

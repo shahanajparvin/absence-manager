@@ -10,9 +10,11 @@ linter:
     always_specify_types: true
     always_put_required_named_parameters_first: false
     avoid_classes_with_only_static_members: false
-    always_declare_return_types: false
+    always_declare_return_types: true
     always_require_non_null_named_parameters: true
     always_use_package_imports: true
     annotate_overrides: true
     avoid_bool_literals_in_conditional_expressions: true
     avoid_empty_else: false
+    require_trailing_commas: false
+    eol_at_end_of_file: false

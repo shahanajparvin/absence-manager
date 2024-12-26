@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 @Injectable()
 class AppSettings {
-  late SharedPreferences _prefs;
+  late final SharedPreferences _prefs;
 
 
   AppSettings._(this._prefs);

@@ -8,12 +8,12 @@ class ApiExceptionHandlingService {
       Future<ApiResponse<T>> Function() apiCall) async {
     try {
       return await apiCall();
-    } on FormatException catch (err) {
+    } on FormatException catch (_) {
       return ErrorResponse<T>(
         statusCode: AppConst.undefinedErrorCode,
         errorMessage: ErrorMessages.invalidResponseFormat,
       );
-    } catch (e, stackTrace) {
+    } catch (e) {
       return ErrorResponse<T>(
         statusCode: AppConst.undefinedErrorCode,
         errorMessage: ErrorMessages.invalidResponseFormat,

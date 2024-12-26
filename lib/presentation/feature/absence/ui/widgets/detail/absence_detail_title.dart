@@ -16,7 +16,7 @@ class AbsenceDetailTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
         crossAxisAlignment : CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           Padding(
             padding:  EdgeInsets.only(top: AppHeight.s2),
             child: AppIcon(
@@ -31,7 +31,6 @@ class AbsenceDetailTitle extends StatelessWidget {
       Flexible(
         child: Text(
           title,
-
           style: Theme.of(context)
               .textTheme
               .labelMedium!

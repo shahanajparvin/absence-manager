@@ -26,11 +26,11 @@ class AbsenceDetailViewAdapter {
 
   String _getAbsenceStatus(Absence absence) {
     if (absence.confirmedAt != null) {
-      return "Confirmed";
+      return 'Confirmed';
     } else if (absence.rejectedAt != null) {
-      return "Rejected";
+      return 'Rejected';
     } else {
-      return "Pending";
+      return 'Pending';
     }
   }
 

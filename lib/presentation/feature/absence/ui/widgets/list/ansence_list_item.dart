@@ -16,13 +16,12 @@ class AbsenceListItem extends StatelessWidget {
 
   const AbsenceListItem(
       {super.key,required this.absence,
-        required this.onDetailCallBack});
+        required this.onDetailCallBack,});
 
   @override
   Widget build(BuildContext context) {
     return Material(
-        color: AppColor.whiteColor, // Set the background color of the material
-        elevation: 0, // Set elevation if needed
+        color: AppColor.whiteColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppRound.s10),
           side: BorderSide(
@@ -39,17 +38,17 @@ class AbsenceListItem extends StatelessWidget {
               extra: absence.id,
             ).then((_) {
              onDetailCallBack();
-            });;
+            });
           },
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
             Padding(
                 padding: EdgeInsets.all(AppHeight.s15),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: <Widget>[
                       Row(
                         crossAxisAlignment : CrossAxisAlignment.start,
-                        children: [
+                        children: <Widget>[
                           Expanded(
                             child: Text(
                               absence.employeeName,
@@ -57,7 +56,7 @@ class AbsenceListItem extends StatelessWidget {
                                   .textTheme
                                   .labelMedium!
                                   .copyWith(
-                                  color:AppColor.textColorDark, fontWeight: FontWeight.w500),
+                                  color:AppColor.textColorDark, fontWeight: FontWeight.w500,),
                             ),
                           ),
                           Text(
@@ -66,8 +65,8 @@ class AbsenceListItem extends StatelessWidget {
                                 .textTheme
                                 .labelSmall!
                                 .copyWith(
-                                color:AppColor.tealColor, fontWeight: FontWeight.w500),
-                          )
+                                color:AppColor.tealColor, fontWeight: FontWeight.w500,),
+                          ),
                         ],
                       ),
 
@@ -75,17 +74,17 @@ class AbsenceListItem extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
+                        children: <Widget>[
                           StartEndDateWidget(
-                              startedOn: absence.startDate.toString(),
-                              endOn: absence.startDate.toString()),
+                              startedOn: absence.startDate,
+                              endOn: absence.startDate,),
 
-                          AbsenceStatusWidget(status: absence.status,)
+                          AbsenceStatusWidget(status: absence.status,),
 
                         ],
                       ),
-                    ]))
-          ]),
-        ));
+                    ],),),
+          ],),
+        ),);
   }
 }

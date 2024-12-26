@@ -5,6 +5,6 @@ class AppKey {
 
   AppKey._();
 
-  static const String keyCurrentLanguage = "current_language";
+  static const String keyCurrentLanguage = 'current_language';
 
 }

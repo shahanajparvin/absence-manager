@@ -78,12 +78,12 @@ class CardShimmer extends StatelessWidget {
                           radius: AppRound.s100,
                           width: AppWidth.s70,
                           height: AppHeight.s25,
-                        )
+                        ),
 
                       ],
-                    )
+                    ),
                   ],
-                )),
+                ),),
           ),
         ],
       ),

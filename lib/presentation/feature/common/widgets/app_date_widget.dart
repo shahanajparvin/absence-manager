@@ -22,7 +22,7 @@ class AppDatePickerField extends StatelessWidget with InputDecorationMixin {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
-      children: [
+      children: <Widget>[
         textFieldLabel(context: context, label: label),
         Gap(AppConst.labelGap),
         TextFormField(
@@ -62,7 +62,7 @@ class AppDatePickerField extends StatelessWidget with InputDecorationMixin {
     );
 
     if (pickedDate != null) {
-      DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+      final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
       dateController.text = dateFormat.format(pickedDate);
     }
   }
