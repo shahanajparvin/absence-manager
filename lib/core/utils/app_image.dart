@@ -14,4 +14,8 @@ class AppImage {
   static const String icTotalCount = 'assets/icons/ic_date_count.svg';
   static const String icMemberNote = 'assets/icons/ic_memeber_note.svg';
   static const String icAdmitTerNote = 'assets/icons/ic_admitter_note.svg';
+  static const String icSelectRadio = 'assets/icons/ic_select_radio.svg';
+  static const String icUnselectRadio = 'assets/icons/ic_unselect_radio.svg';
+  static const String icDeLang = 'assets/icons/ic_de_lang.png';
+  static const String icEnLang = 'assets/icons/ic_en_lang.png';
 }

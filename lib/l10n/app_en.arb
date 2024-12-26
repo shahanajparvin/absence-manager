@@ -1,5 +1,6 @@
 {
   "@@locale": "en",
+  "absence_manager" : "Absence Manager",
   "welcome_to": "Welcome to",
   "started_on" : "Started on",
   "ended_on" : "Ended on",
@@ -10,5 +11,8 @@
   "vacation" : "Vacation",
   "general_error_message" : "Something went wrong!",
   "retry" : "Retry",
-  "no_absence_found":"No absences list found."
+  "no_absence_found":"No absences list found.",
+  "english" : "English",
+  "german" : "German",
+  "select_preferred_language" : "Please select your preferred language"
 }

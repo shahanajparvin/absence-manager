@@ -2,6 +2,7 @@
 {
   "@@locale": "de",
   "welcome_to" : "Willkommen bei",
+  "absence_manager" : "Abwesenheitsmanager",
   "started_on": "Gestartet am",
   "ended_on": "Beendet am",
   "confirm": "Bestätigt",
