@@ -27,7 +27,7 @@ class AppConst {
 
   static double textFieldHorizontalPadding = AppHeight.s12;
 
-  static double textFieldVerticalPadding = AppHeight.s16;
+  static double textFieldVerticalPadding = AppHeight.s12;
 
   static double filterBottomHeight = AppHeight.s45;
 

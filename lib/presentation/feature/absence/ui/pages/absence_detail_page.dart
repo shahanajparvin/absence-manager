@@ -18,7 +18,6 @@ class AbsenceDetailPage extends StatelessWidget {
         backgroundColor: AppColor.whiteColor,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: const Text('Absence Detail'),
         ),
         body: BlocProvider<AbsenceDetailBloc>(
             create: (_) => injector(),
@@ -27,7 +26,6 @@ class AbsenceDetailPage extends StatelessWidget {
     );
   }
 }
-
 
 
 

@@ -34,4 +34,6 @@ class AppColor {
 
   static const Color dateColor = Color(0xff16A9B7);
 
+  static const Color themeBlackColor = Color(0xff070305);
+
 }

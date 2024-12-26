@@ -2,6 +2,7 @@ import 'package:absence_manager/core/service/filter_handler_service.dart';
 import 'package:absence_manager/core/utils/app_color.dart';
 import 'package:absence_manager/core/utils/app_constant.dart';
 import 'package:absence_manager/core/utils/app_size.dart';
+import 'package:absence_manager/core/utils/core_utils.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_bloc.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_event.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/filter/absence_filter_data_bloc_impl.dart';
@@ -92,7 +93,7 @@ class AbsenceFilterBottomChild extends StatelessWidget {
               labelColor: onApply==null?AppColor.themeDeepBlackColor:null,
               onPressed: onApply, // Call the onApply callback
               backGroundColor: AppColor.activeColor,
-              label: 'Apply',
+              label: context.text.apply,
 
             ),
           Gap(AppHeight.s15),
@@ -100,7 +101,7 @@ class AbsenceFilterBottomChild extends StatelessWidget {
               labelColor: AppColor.themeDeepBlackColor,
               onPressed: onReset, // Call the onReset callback
               backGroundColor: AppColor.whiteColor,
-              label: 'Reset',
+              label:  context.text.reset,
             ),
         ],
       ),

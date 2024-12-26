@@ -3,6 +3,7 @@ import 'package:absence_manager/core/utils/app_color.dart';
 import 'package:absence_manager/core/utils/app_constant.dart';
 import 'package:absence_manager/core/utils/app_image.dart';
 import 'package:absence_manager/core/utils/app_size.dart';
+import 'package:absence_manager/core/utils/core_utils.dart';
 import 'package:absence_manager/presentation/feature/common/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -30,7 +31,7 @@ class AppDatePickerField extends StatelessWidget with InputDecorationMixin {
             readOnly: true,
             decoration: customInputDecoration(
               context: context,
-              hintText: 'Select Date',
+              hintText: context.text.select_date,
               suffixIcon: Padding(
                   padding: EdgeInsets.only(
                       top: AppHeight.s10,
@@ -56,15 +57,13 @@ class AppDatePickerField extends StatelessWidget with InputDecorationMixin {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
+      firstDate: DateTime(1901),
       lastDate: DateTime(2100),
     );
 
     if (pickedDate != null) {
-      DateFormat dateFormat = DateFormat('yyyy-MM-dd'); // Define the format
-      dateController.text = dateFormat.format(pickedDate); // Format the picked date
-     /* dateController.text = '${pickedDate.year}-${pickedDate.month}-${pickedDate.day}';*/
-      onSelect(dateController.text);
+      DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+      dateController.text = dateFormat.format(pickedDate);
     }
   }
 }

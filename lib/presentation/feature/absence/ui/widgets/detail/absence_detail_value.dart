@@ -13,7 +13,7 @@ class AbsenceDetailValue extends StatelessWidget {
     return Text(
       value,
       style: Theme.of(context).textTheme.labelMedium!.copyWith(
-          fontWeight: FontWeight.w500, color: color ?? AppColor.textColorDark),
+          fontWeight: FontWeight.w500, color: color ?? AppColor.themeBlackColor),
     );
   }
 }

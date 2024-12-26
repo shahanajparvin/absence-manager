@@ -81,7 +81,7 @@ class ChangeLanguageViewState extends State<ChangeLanguageView> {
             width: double.infinity,
             child: AppButton(
               backGroundColor: AppColor.themeColor,
-              label: 'Update',
+              label: context.text.change,
               onPressed: () async {
                 final Language lang = Language.getLanguageByCode((selectedLanguage.languageCode));
                 await widget.appSettings.setSelectedLanguage(lang);

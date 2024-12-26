@@ -1,6 +1,9 @@
+import 'package:absence_manager/core/service/absence_status_service.dart';
+import 'package:absence_manager/core/service/ansence_type_service.dart';
 import 'package:absence_manager/core/utils/app_constant.dart';
 import 'package:absence_manager/core/utils/app_image.dart';
 import 'package:absence_manager/core/utils/app_size.dart';
+import 'package:absence_manager/core/utils/core_utils.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_detail/absence_detail_bloc.dart';
 import 'package:absence_manager/presentation/feature/absence/model/absence_detail_model.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/detail/absence_detail_title.dart';
@@ -49,8 +52,8 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const AbsenceDetailTitle(
-                      title: 'Name',
+                     AbsenceDetailTitle(
+                      title: context.text.name,
                       iconAsset: AppImage.icName,
                     ),
                     Gap(AppConst.titleGap),
@@ -63,13 +66,13 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const AbsenceDetailTitle(
-                      title: 'Type of Absence',
+                     AbsenceDetailTitle(
+                      title: context.text.type_of_absence,
                       iconAsset: AppImage.icAbsenceType,
                     ),
                     Gap(AppConst.titleGap),
                     AbsenceDetailValue(
-                      value: detail.type,
+                      value:AbsenceTypeService.getReadableStatusName(detail.type) ,
                     )
                   ],
                 ),
@@ -77,8 +80,8 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const AbsenceDetailTitle(
-                      title: 'Start Date',
+                     AbsenceDetailTitle(
+                      title: context.text.start_date,
                       iconAsset: AppImage.icStartDate,
                     ),
                     Gap(AppConst.titleGap),
@@ -91,8 +94,8 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const AbsenceDetailTitle(
-                      title: 'End Date',
+                     AbsenceDetailTitle(
+                      title: context.text.end_date,
                       iconAsset: AppImage.icEndDate,
                     ),
                     Gap(AppConst.titleGap),
@@ -105,8 +108,8 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const AbsenceDetailTitle(
-                      title: 'Total day',
+                     AbsenceDetailTitle(
+                      title: context.text.total_count,
                       iconAsset: AppImage.icTotalCount,
                     ),
                     Gap(AppConst.titleGap),
@@ -120,13 +123,13 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const AbsenceDetailTitle(
-                      title: 'Status',
+                     AbsenceDetailTitle(
+                      title: context.text.status,
                       iconAsset: AppImage.icStatus,
                     ),
                     Gap(AppConst.titleGap),
                     AbsenceDetailValue(
-                      value: detail.status,
+                      value:  AbsenceStatusService.getReadableStatusName(detail.status),
                       color: _getStatusColor(detail.status),
                     )
                   ],
@@ -136,8 +139,8 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Gap(AppConst.detailGap),
-                        const AbsenceDetailTitle(
-                          title: 'Admitter Note',
+                         AbsenceDetailTitle(
+                          title: context.text.admitter_note,
                           iconAsset: AppImage.icAdmitTerNote,
                         ),
                         Gap(AppConst.titleGap),
@@ -150,8 +153,8 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Gap(AppConst.detailGap),
-                        const AbsenceDetailTitle(
-                          title: 'Member Note',
+                         AbsenceDetailTitle(
+                          title: context.text.member_note,
                           iconAsset: AppImage.icMemberNote,
                         ),
                         Gap(AppConst.titleGap),
@@ -170,7 +173,7 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
             ),
           );
         } else {
-          return const Center(child: Text('No absence details found.'));
+          return  Center(child: Text(context.text.no_absence_found));
         }
       },
     );

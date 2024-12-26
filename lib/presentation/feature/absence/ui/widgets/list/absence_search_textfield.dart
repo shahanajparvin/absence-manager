@@ -1,6 +1,7 @@
 import 'package:absence_manager/core/mixin/input_decoration_mixin.dart';
 import 'package:absence_manager/core/utils/app_color.dart';
 import 'package:absence_manager/core/utils/app_size.dart';
+import 'package:absence_manager/core/utils/core_utils.dart';
 import 'package:flutter/material.dart';
 
 class AbsenceSearchBar extends StatefulWidget {
@@ -50,7 +51,7 @@ class _AbsenceSearchBarState extends State<AbsenceSearchBar>
           decoration: customInputDecoration(
             fillColor: AppColor.whiteColor,
             contentPadding: EdgeInsets.zero,
-            hintText: 'Search by employee name',
+            hintText: context.text.search_leave_by_name,
             prefixIcon: Padding(
               padding: EdgeInsets.only(left: AppWidth.s10),
               child: const Icon(Icons.search)
