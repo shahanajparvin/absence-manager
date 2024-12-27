@@ -100,6 +100,7 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
         context: context,
         dataBloc: absenceFilterDataBloc,
         filterBottomWidget: AbsenceFilterBottomWidget(
+          parentContext: context,
           absenceFilterDataBloc: absenceFilterDataBloc,
         ));
   }

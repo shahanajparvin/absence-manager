@@ -15,10 +15,11 @@ import 'package:gap/gap.dart';
 
 class AbsenceFilterBottomWidget extends StatelessWidget {
   final AbsenceFilterDataBloc absenceFilterDataBloc;
+  final BuildContext parentContext;
 
 
   const AbsenceFilterBottomWidget({
-    required this.absenceFilterDataBloc,
+    required this.absenceFilterDataBloc, required this.parentContext,
   });
 
   @override
@@ -31,7 +32,7 @@ class AbsenceFilterBottomWidget extends StatelessWidget {
               ? () {
             Navigator.of(context).pop();
              _applyFilters(
-              context: context,
+              context: parentContext,
                 startDate: absenceFilterDataBloc.startDate,
                 endDate: absenceFilterDataBloc.endDate,
                 type: absenceFilterDataBloc.sickType);
@@ -41,7 +42,7 @@ class AbsenceFilterBottomWidget extends StatelessWidget {
               ? () {
             Navigator.of(context).pop();
             absenceFilterDataBloc.resetFilters();
-            _resetFilters(context);
+            _resetFilters(parentContext);
           }
               : null,
         );
@@ -60,12 +61,17 @@ class AbsenceFilterBottomWidget extends StatelessWidget {
     String? endDate,
     required BuildContext context
   }) {
-    BlocProvider.of<AbsenceListBloc>(context).add(FilterAbsencesEvent(
+    if(context.mounted) {
+      BlocProvider.of<AbsenceListBloc>(context).add(FilterAbsencesEvent(
         type: type, startDate: startDate, endDate: endDate));
+    }
   }
 
   void _resetFilters(BuildContext context) {
-    BlocProvider.of<AbsenceListBloc>(context).add(ResetFiltersEvent());
+    if(context.mounted) {
+      BlocProvider.of<AbsenceListBloc>(context).add(ResetFiltersEvent());
+    }
+
   }
 }
 
