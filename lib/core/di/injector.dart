@@ -2,6 +2,7 @@
 import 'package:absence_manager/core/di/injector.config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final GetIt injector = GetIt.instance;
 
@@ -12,3 +13,9 @@ final GetIt injector = GetIt.instance;
 )
 
 Future<GetIt> configureDependencies() async => injector.init();
+
+@module
+abstract class RegisterModule {
+  @lazySingleton
+  Future<SharedPreferences> get sharedPreferences => SharedPreferences.getInstance();
+}

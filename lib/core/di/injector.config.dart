@@ -26,6 +26,7 @@ import '../service/app_dialog_service.dart' as _i513;
 import '../service/filter_handler_service.dart' as _i1034;
 import '../utils/app_modal_controller.dart' as _i553;
 import '../utils/app_settings.dart' as _i270;
+import 'injector.dart' as _i811;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -38,14 +39,17 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    final registerModule = _$RegisterModule();
     gh.factory<_i513.AppDialogService>(() => _i513.AppDialogService());
     gh.factory<_i553.ModalController>(() => _i553.ModalController());
     gh.factory<_i846.AbsenceFilterDataBloc>(
         () => _i846.AbsenceFilterDataBloc());
+    gh.lazySingletonAsync<_i460.SharedPreferences>(
+        () => registerModule.sharedPreferences);
     gh.factory<_i1034.FilterHandler>(
         () => _i1034.FilterHandler(gh<_i513.AppDialogService>()));
-    gh.factory<_i270.AppSettings>(
-        () => _i270.AppSettings(gh<_i460.SharedPreferences>()));
+    gh.factoryAsync<_i270.AppSettings>(() async =>
+        _i270.AppSettings(await getAsync<_i460.SharedPreferences>()));
     gh.lazySingleton<_i702.AbsenceManagerRepository>(
         () => _i1070.AbsenceManagerRepositoryImpl());
     gh.factory<_i237.GetAbsencesUseCase>(
@@ -63,3 +67,5 @@ extension GetItInjectableX on _i174.GetIt {
     return this;
   }
 }
+
+class _$RegisterModule extends _i811.RegisterModule {}

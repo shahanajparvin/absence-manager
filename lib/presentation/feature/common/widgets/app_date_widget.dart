@@ -34,10 +34,10 @@ class AppDatePickerField extends StatelessWidget with InputDecorationMixin {
               hintText: context.text.select_date,
               suffixIcon: Padding(
                   padding: EdgeInsets.only(
-                      top: AppHeight.s10,
-                      bottom: AppHeight.s10,
-                      left: AppHeight.s10,
-                      right: AppHeight.s10),
+                      top: AppHeight.s15,
+                      bottom: AppHeight.s15,
+                      left: AppHeight.s15,
+                      right: AppHeight.s15),
                   child: AppIcon(
                       assetName: AppImage.icCalender,
                       height: AppWidth.s18,
