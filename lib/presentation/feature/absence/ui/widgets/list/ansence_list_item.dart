@@ -60,7 +60,7 @@ class AbsenceListItem extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            AbsenceTypeService.getReadableStatusName(absence.type),
+                            AbsenceTypeService(context).convertValueToReadableName(absence.type),
                             style: Theme.of(context)
                                 .textTheme
                                 .labelSmall!

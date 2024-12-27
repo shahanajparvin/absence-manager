@@ -30,6 +30,7 @@
   "select_date" : "Datum auswählen",
   "english" : "Englisch",
   "german" : "Deutsch",
-  "change" : "Ändern"
+  "change" : "Ändern",
+  "all": "Alle"
 
 }

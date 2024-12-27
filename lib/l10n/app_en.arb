@@ -29,6 +29,8 @@
   "select_date" : "Select Date",
   "english" : "English",
   "german" : "German",
-  "change" : "Change"
+  "change" : "Change",
+  "all": "All"
+
 
 }

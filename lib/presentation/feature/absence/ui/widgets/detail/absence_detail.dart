@@ -72,7 +72,7 @@ class _AbsenceDetailWidgetState extends State<AbsenceDetailWidget> {
                     ),
                     Gap(AppConst.titleGap),
                     AbsenceDetailValue(
-                      value:AbsenceTypeService.getReadableStatusName(detail.type) ,
+                      value:AbsenceTypeService(context).convertValueToReadableName(detail.type) ,
                     )
                   ],
                 ),
