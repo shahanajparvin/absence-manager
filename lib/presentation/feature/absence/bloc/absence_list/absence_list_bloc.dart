@@ -1,4 +1,5 @@
 import 'package:absence_manager/core/network/api_response.dart';
+import 'package:absence_manager/core/utils/app_constant.dart';
 import 'package:absence_manager/core/utils/core_utils.dart';
 import 'package:absence_manager/domain/entities/absence/absence.dart';
 import 'package:absence_manager/domain/entities/member/member.dart';
@@ -35,7 +36,7 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
       GetAbsencesWithMembersEvent event, Emitter<AbsenceListState> emit,) async {
     emit(AbsenceLoadingState());
 
-    await AppUtils.delay(const Duration(milliseconds: 1000));
+    await AppUtils.delay(const Duration(milliseconds: AppConst.delayTime));
 
     try {
       final List<ApiResponse<List<Object>>> responses = await Future.wait(<Future<ApiResponse<List<Object>>>>[
@@ -50,6 +51,7 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
         final List<AbsenceListModel> list =  _adaptAbsencesData(absences.data!, members.data!);
         emit(AbsenceSuccessState(list));
       } else {
+        print('error state');
         final String errorMessage = _getErrorMessage(absences, members);
         emit(AbsenceErrorState(errorMessage));
       }
@@ -117,7 +119,7 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
 
     emit(AbsenceLoadingState());
 
-    await AppUtils.delay(const Duration(milliseconds: 1000));
+    await AppUtils.delay(const Duration(milliseconds: AppConst.delayTime));
 
     try {
       final List<ApiResponse<List<Object>>> responses = await Future.wait(<Future<ApiResponse<List<Object>>>>[
@@ -153,7 +155,7 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
   Future<void> _onSearchAbsences(SearchAbsencesEvent event, Emitter<AbsenceListState> emit) async {
     emit(AbsenceLoadingState());
 
-    await AppUtils.delay(const Duration(milliseconds: 1000));
+    await AppUtils.delay(const Duration(milliseconds: AppConst.delayTime));
 
     try {
       final List<ApiResponse<List<Object>>> responses = await Future.wait(<Future<ApiResponse<List<Object>>>>[

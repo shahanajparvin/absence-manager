@@ -1,7 +1,13 @@
 
 import 'package:absence_manager/presentation/feature/absence/model/absence_list_model.dart';
 
-abstract class AbsenceListState {}
+import 'package:equatable/equatable.dart';
+
+
+abstract class AbsenceListState extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
 
 class AbsenceInitial extends AbsenceListState {}
 
@@ -12,10 +18,17 @@ class AbsenceSuccessState extends AbsenceListState {
   final bool hasMorePages;
 
   AbsenceSuccessState(this.absences, {this.hasMorePages = false});
+
+  @override
+  List<Object?> get props => [absences, hasMorePages];
 }
 
 class AbsenceErrorState extends AbsenceListState {
   final String errorMessage;
 
   AbsenceErrorState(this.errorMessage);
+
+  @override
+  List<Object?> get props => [errorMessage];
 }
+

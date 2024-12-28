@@ -1,3 +1,4 @@
+import 'package:absence_manager/core/utils/app_constant.dart';
 import 'package:absence_manager/core/utils/core_utils.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_bloc.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_event.dart';
@@ -117,14 +118,14 @@ class AbsenceListSuccess extends StatelessWidget {
         if (scrollController.hasClients) {
           scrollController.animateTo(
             scrollController.position.maxScrollExtent, // Target the latest max extent
-            duration: const Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: AppConst.delayTime),
             curve: Curves.easeOut,
           );
         }
       });
 
 
-      await AppUtils.delay(const Duration(seconds: 2));
+      await AppUtils.delay(const Duration(milliseconds: AppConst.delayScrollTime));
       if (context.mounted&&context.read<AbsenceListBloc>().state is AbsenceSuccessState &&
           (context.read<AbsenceListBloc>().state as AbsenceSuccessState).hasMorePages) {
         BlocProvider.of<AbsenceListBloc>(context).add(FetchPaginatedAbsenceEvent(itemsPerPage));

@@ -37,6 +37,10 @@ class AppConst {
 
   static double detailGap = AppHeight.s20;
 
+  static const int delayTime = 1000;
+
+  static const int delayScrollTime = 2000;
+
 
 }
 
