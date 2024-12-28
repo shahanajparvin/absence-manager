@@ -1,14 +1,13 @@
-import 'package:absence_manager/data/repository/absence_manager_repository_impl.dart';
-import 'package:mockito/annotations.dart';
-import 'package:api/api.dart';
-
 import 'package:absence_manager/core/network/api_exceptions.dart';
 import 'package:absence_manager/core/network/api_response.dart';
 import 'package:absence_manager/core/network/error_messages.dart';
 import 'package:absence_manager/core/utils/app_constant.dart';
+import 'package:absence_manager/data/repository/absence_manager_repository_impl.dart';
 import 'package:absence_manager/domain/entities/absence/absence.dart';
 import 'package:absence_manager/domain/entities/member/member.dart';
+import 'package:api/api.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'absence_manager_repository_impl_test.mocks.dart';
@@ -27,18 +26,18 @@ void main() {
 
   group('getAbsences', () {
     final List<dynamic> mockAbsenceData = <dynamic>[
-      <String, Object?>{ "admitterId": null,
-        "admitterNote": "",
-        "confirmedAt": "2020-12-12T18:03:55.000+01:00",
-        "createdAt": "2020-12-12T14:17:01.000+01:00",
-        "crewId": 352,
-        "endDate": "2021-01-13",
-        "id": 2351,
-        "memberNote": "",
-        "rejectedAt": null,
-        "startDate": "2021-01-13",
-        "type": "sickness",
-        "userId": 2664}
+      <String, Object?>{ 'admitterId': null,
+        'admitterNote': '',
+        'confirmedAt': '2020-12-12T18:03:55.000+01:00',
+        'createdAt': '2020-12-12T14:17:01.000+01:00',
+        'crewId': 352,
+        'endDate': '2021-01-13',
+        'id': 2351,
+        'memberNote': '',
+        'rejectedAt': null,
+        'startDate': '2021-01-13',
+        'type': 'sickness',
+        'userId': 2664}
     ];
 
     test('should return success response with absences when API call succeeds', () async {
@@ -68,7 +67,7 @@ void main() {
     });
 
     test('should return error response when API returns empty data', () async {
-      when(mockApi.absences()).thenAnswer((_) async => <ErrorResponse>[]);
+      when(mockApi.absences()).thenAnswer((_) async => <ErrorResponse<List<Absence>>>[]);
 
       const ApiResponse<List<Absence>> error =  ErrorResponse<List<Absence>>(
         statusCode: AppConst.undefinedErrorCode,
@@ -90,18 +89,18 @@ void main() {
  group('getMembers', () {
     final List<dynamic> mockMemberData = <dynamic>[
       <String, Object>{
-        "crewId": 352,
-        "id": 709,
-        "image": "https://loremflickr.com/300/400",
-        "name": "Max",
-        "userId": 644
+        'crewId': 352,
+        'id': 709,
+        'image': 'https://loremflickr.com/300/400',
+        'name': 'Max',
+        'userId': 644
       },
       <String, Object>{
-        "crewId": 352,
-        "id": 709,
-        "image": "https://loremflickr.com/300/400",
-        "name": "Max",
-        "userId": 644
+        'crewId': 352,
+        'id': 709,
+        'image': 'https://loremflickr.com/300/400',
+        'name': 'Max',
+        'userId': 644
       },
     ];
 

@@ -43,7 +43,7 @@ void main() {
     test('should return an error when repository call fails', () async {
       const ApiResponse<List<Absence>> response = ErrorResponse<List<Absence>>(
         statusCode: AppConst.undefinedErrorCode,
-        errorMessage: errorMessage,
+        errorMessage: dummyErrorMessage,
       );
 
       when(mockRepository.getAbsences()).thenAnswer((_) async => response);
@@ -52,7 +52,7 @@ void main() {
 
       expect(result.statusCode, AppConst.undefinedErrorCode);
       expect(
-          (result as ErrorResponse<List<Absence>>).errorMessage, errorMessage);
+          (result as ErrorResponse<List<Absence>>).errorMessage, dummyErrorMessage);
       verify(mockRepository.getAbsences()).called(1);
       verifyNoMoreInteractions(mockRepository);
     });

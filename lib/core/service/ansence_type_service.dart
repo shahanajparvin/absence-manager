@@ -63,7 +63,7 @@ class AbsenceTypeService {
   AbsenceTypeService(this.context);
 
   List<String> getReadableAbsenceTypeList() {
-    return AbsenceTypeEnum.values.map((e) => getReadableAbsenceType(e)).toList();
+    return AbsenceTypeEnum.values.map((AbsenceTypeEnum e) => getReadableAbsenceType(e)).toList();
   }
 
   AbsenceTypeEnum? parseReadableAbsenceType(String readableValue) {

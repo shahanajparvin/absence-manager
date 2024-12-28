@@ -6,7 +6,7 @@ import 'package:equatable/equatable.dart';
 
 abstract class AbsenceListState extends Equatable {
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }
 
 class AbsenceInitial extends AbsenceListState {}
@@ -20,7 +20,7 @@ class AbsenceSuccessState extends AbsenceListState {
   AbsenceSuccessState(this.absences, {this.hasMorePages = false});
 
   @override
-  List<Object?> get props => [absences, hasMorePages];
+  List<Object?> get props => <Object?>[absences, hasMorePages];
 }
 
 class AbsenceErrorState extends AbsenceListState {
@@ -29,6 +29,6 @@ class AbsenceErrorState extends AbsenceListState {
   AbsenceErrorState(this.errorMessage);
 
   @override
-  List<Object?> get props => [errorMessage];
+  List<Object?> get props => <Object?>[errorMessage];
 }
 

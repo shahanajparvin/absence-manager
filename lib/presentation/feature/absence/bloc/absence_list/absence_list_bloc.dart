@@ -51,7 +51,6 @@ class AbsenceListBloc extends Bloc<AbsenceListEvent, AbsenceListState> {
         final List<AbsenceListModel> list =  _adaptAbsencesData(absences.data!, members.data!);
         emit(AbsenceSuccessState(list));
       } else {
-        print('error state');
         final String errorMessage = _getErrorMessage(absences, members);
         emit(AbsenceErrorState(errorMessage));
       }
