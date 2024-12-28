@@ -13,6 +13,7 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
+import '../../data/repository/absence_manager_repository_impl.dart' as _i114;
 import '../../domain/repository/absence_manager_repository.dart' as _i702;
 import '../../domain/usecases/get_absences_usecase.dart' as _i237;
 import '../../domain/usecases/get_members_usecase.dart' as _i627;
@@ -22,7 +23,6 @@ import '../../presentation/feature/absence/bloc/absence_list/absence_list_bloc.d
     as _i286;
 import '../../presentation/feature/absence/bloc/filter/absence_filter_data_bloc_impl.dart'
     as _i846;
-import '../data/repository/absence_manager_repository_impl.dart' as _i1070;
 import '../network/api_exceptions.dart' as _i978;
 import '../service/app_dialog_service.dart' as _i513;
 import '../service/filter_handler_service.dart' as _i1034;
@@ -56,7 +56,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factoryAsync<_i270.AppSettings>(() async =>
         _i270.AppSettings(await getAsync<_i460.SharedPreferences>()));
     gh.lazySingleton<_i702.AbsenceManagerRepository>(
-        () => _i1070.AbsenceManagerRepositoryImpl(
+        () => _i114.AbsenceManagerRepositoryImpl(
               gh<_i24.Api>(),
               gh<_i978.ApiExceptionHandlingService>(),
             ));

@@ -1,6 +1,7 @@
+import 'package:absence_manager/data/repository/absence_manager_repository_impl.dart';
 import 'package:mockito/annotations.dart';
 import 'package:api/api.dart';
-import 'package:absence_manager/core/data/repository/absence_manager_repository_impl.dart';
+
 import 'package:absence_manager/core/network/api_exceptions.dart';
 import 'package:absence_manager/core/network/api_response.dart';
 import 'package:absence_manager/core/network/error_messages.dart';
