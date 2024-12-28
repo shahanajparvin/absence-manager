@@ -10,12 +10,17 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: AbsenceManagerRepository)
 class AbsenceManagerRepositoryImpl extends AbsenceManagerRepository {
-  AbsenceManagerRepositoryImpl();
+
+  final Api api;
+  final ApiExceptionHandlingService apiExceptionHandlingService;
+
+  AbsenceManagerRepositoryImpl(this.api, this.apiExceptionHandlingService);
 
   @override
   Future<ApiResponse<List<Absence>>> getAbsences() async {
-    return ApiExceptionHandlingService().handleApiCall(() async {
-      final List<dynamic>? data = await absences();
+    return apiExceptionHandlingService.handleApiCall(() async {
+      final List<dynamic>? data = await api.absences();
+      print('data' +data.toString());
       if (data != null && data.isNotEmpty) {
         final List<Absence> absenceList = data.map((dynamic json) {
           return Absence.fromJson(json as Map<String, dynamic>);
@@ -35,8 +40,8 @@ class AbsenceManagerRepositoryImpl extends AbsenceManagerRepository {
 
   @override
   Future<ApiResponse<List<Member>>> getMembers() async {
-    return ApiExceptionHandlingService().handleApiCall(() async {
-      final List<dynamic>? data = await members();
+    return apiExceptionHandlingService.handleApiCall(() async {
+      final List<dynamic>? data = await api.members();
       if (data != null && data.isNotEmpty) {
         final List<Member> members = data.map((dynamic json) {
           return Member.fromJson(json as Map<String, dynamic>);
