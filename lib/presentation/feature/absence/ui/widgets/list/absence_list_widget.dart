@@ -17,6 +17,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
 class AbsenceListWidget extends StatefulWidget {
+
+  final FilterHandler filterHandler;
+  final AbsenceFilterDataBloc absenceFilterDataBloc;
+
+  const AbsenceListWidget({super.key, required this.filterHandler, required this.absenceFilterDataBloc});
+
   @override
   State<AbsenceListWidget> createState() => _AbsenceListWidgetState();
 }
@@ -26,8 +32,7 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
 
   final ScrollController scrollController = ScrollController();
 
-  final FilterHandler _filterHandler = injector();
-  final AbsenceFilterDataBloc absenceFilterDataBloc = injector();
+
   final ValueNotifier<bool> isLoadingNotifier = ValueNotifier<bool>(false);
 
   final TextEditingController searchController = TextEditingController();
@@ -48,13 +53,13 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
     return Padding(
         padding: EdgeInsets.all(AppConst.formPadding),
         child: Column(children: <Widget>[
-          SearchFilterBar(
+        /*  SearchFilterBar(
             focusNode: focusNode,
             searchController: searchController,
             onSuffixIconCallback: () => _triggerSearch(''),
             onFilterPressed: _filterIconPressFunctionality,
           ),
-          Gap(AppHeight.s10),
+          Gap(AppHeight.s10),*/
           AbsenceListStateWidget(
             scrollController: scrollController,
             isLoadingNotifier: isLoadingNotifier,
@@ -92,16 +97,16 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
   }
 
   void _filterIconPressFunctionality() {
-    _filterHandler.showFilterDialog(
+    widget.filterHandler.showFilterDialog(
         filterHeaderWidget: const AbsenceFilterHeader(),
         filterWidget: AbsenceFilter(
-          dataBloc: absenceFilterDataBloc,
+          dataBloc:  widget.absenceFilterDataBloc,
         ),
         context: context,
-        dataBloc: absenceFilterDataBloc,
+        dataBloc:  widget.absenceFilterDataBloc,
         filterBottomWidget: AbsenceFilterBottomWidget(
           parentContext: context,
-          absenceFilterDataBloc: absenceFilterDataBloc,
+          absenceFilterDataBloc:  widget.absenceFilterDataBloc,
         ));
   }
 }

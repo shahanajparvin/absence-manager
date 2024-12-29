@@ -59,8 +59,7 @@ void main() {
       verify: (_) async {
         verify(mockGetAbsencesUseCase.execute()).called(1);
         verify(mockGetMembersUseCase.execute()).called(1);
-
-      },
+        },
     );
 
   });

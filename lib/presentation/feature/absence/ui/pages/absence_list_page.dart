@@ -6,7 +6,7 @@ import 'package:absence_manager/core/utils/app_size.dart';
 import 'package:absence_manager/core/utils/core_utils.dart';
 import 'package:absence_manager/main_common.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_bloc.dart';
-import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_list.dart';
+import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_list_widget.dart';
 import 'package:absence_manager/presentation/feature/common/widgets/app_translate_icon.dart';
 import 'package:absence_manager/presentation/feature/lanuage/ui/change_language_view.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +49,10 @@ class _AbsenceListPageState extends State<AbsenceListPage> {
       ),
       body: BlocProvider<AbsenceListBloc>(
         create: (_) => injector(),
-        child: AbsenceListWidget(),
+        child: AbsenceListWidget(
+          filterHandler: injector(),
+          absenceFilterDataBloc:injector(),
+        ),
       ),
     );
   }
