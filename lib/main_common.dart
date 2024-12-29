@@ -50,6 +50,7 @@ class AppMaterial extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LanguageBloc, LanguageState>(
       builder: (BuildContext context, LanguageState state) => MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates:   const <LocalizationsDelegate<dynamic>>[
           AppLocalizations.delegate,
