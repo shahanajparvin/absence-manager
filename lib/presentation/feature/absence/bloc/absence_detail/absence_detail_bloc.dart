@@ -42,18 +42,11 @@ class AbsenceDetailBloc extends Bloc<AbsenceDetailEvent, AbsenceDetailState> {
       final ApiResponse<List<Member>> members = responses[1] as ApiResponse<List<Member>>;
 
 
-      print((absences is SuccessResponse<List<Absence>> && members is SuccessResponse<List<Member>>).toString());
-
       if (absences is SuccessResponse<List<Absence>> && members is SuccessResponse<List<Member>>) {
-
-
 
         final Absence? absence= _findAbsenceById(absences.data!, event.absenceId);
 
-
-
         if(absence!=null){
-          debugPrint(members.data!.toString());
           final Member? member = _findMemberById(members.data!, absence.userId);
           final AbsenceDetailModel absenceDetailsView =  _adaptAbsenceDetailData(absence, member!);
           emit(AbsenceDetailSuccessState(absenceDetailsView));

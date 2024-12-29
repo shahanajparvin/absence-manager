@@ -1,7 +1,6 @@
 import 'package:absence_manager/core/di/injector.dart';
 import 'package:absence_manager/core/utils/app_color.dart';
 import 'package:absence_manager/core/utils/app_modal_controller.dart';
-import 'package:absence_manager/core/utils/app_settings.dart';
 import 'package:absence_manager/core/utils/app_size.dart';
 import 'package:absence_manager/core/utils/core_utils.dart';
 import 'package:absence_manager/main_common.dart';

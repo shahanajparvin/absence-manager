@@ -1,20 +1,13 @@
 import 'dart:async' as debounce;
-import 'package:absence_manager/core/di/injector.dart';
 import 'package:absence_manager/core/service/filter_handler_service.dart';
 import 'package:absence_manager/core/utils/app_constant.dart';
-import 'package:absence_manager/core/utils/app_size.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_bloc.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/absence_list/absence_list_event.dart';
 import 'package:absence_manager/presentation/feature/absence/bloc/filter/absence_filter_data_bloc_impl.dart';
-import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_filter.dart';
-import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_filter_bottom.dart';
-import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_filter_header.dart';
 import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_list_state_widget.dart';
-import 'package:absence_manager/presentation/feature/absence/ui/widgets/list/absence_searce_filter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gap/gap.dart';
 
 class AbsenceListWidget extends StatefulWidget {
 
@@ -96,17 +89,4 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
         .add(SearchAbsencesEvent(searchText: query));
   }
 
-  void _filterIconPressFunctionality() {
-    widget.filterHandler.showFilterDialog(
-        filterHeaderWidget: const AbsenceFilterHeader(),
-        filterWidget: AbsenceFilter(
-          dataBloc:  widget.absenceFilterDataBloc,
-        ),
-        context: context,
-        dataBloc:  widget.absenceFilterDataBloc,
-        filterBottomWidget: AbsenceFilterBottomWidget(
-          parentContext: context,
-          absenceFilterDataBloc:  widget.absenceFilterDataBloc,
-        ));
-  }
 }

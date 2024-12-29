@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 
 abstract class AbsenceDetailState extends Equatable {
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }
 
 class AbsenceDetailInitial extends AbsenceDetailState {}
@@ -16,7 +16,7 @@ class AbsenceDetailSuccessState extends AbsenceDetailState {
   AbsenceDetailSuccessState(this.absenceDetailView);
 
   @override
-  List<Object?> get props => [absenceDetailView];
+  List<Object?> get props => <Object?>[absenceDetailView];
 }
 
 class AbsenceDetailErrorState extends AbsenceDetailState {
@@ -25,5 +25,5 @@ class AbsenceDetailErrorState extends AbsenceDetailState {
   AbsenceDetailErrorState(this.errorMessage);
 
   @override
-  List<Object?> get props => [errorMessage];
+  List<Object?> get props => <Object?>[errorMessage];
 }
