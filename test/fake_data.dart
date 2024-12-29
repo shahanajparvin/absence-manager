@@ -17,12 +17,14 @@ final Absence dummyAbsence = Absence(
   userId: 456,
 );
 
+
+
 final Member dummyMember = Member(
   crewId: 1,
   id: 101,
   image: 'https://example.com/images/member101.jpg',
   name: 'John Doe',
-  userId: 1001,
+  userId: 456,
 );
 
 final AbsenceListModel dummyAbsenceListModel = AbsenceListModel(
