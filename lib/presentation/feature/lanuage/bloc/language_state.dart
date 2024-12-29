@@ -1,8 +1,8 @@
 
-
 import 'package:absence_manager/domain/entities/language.dart';
+import 'package:equatable/equatable.dart';
 
-class LanguageState {
+class LanguageState extends Equatable {
   const LanguageState({
     Language? selectedLanguage,
   }) : selectedLanguage = selectedLanguage ?? Language.english;
@@ -14,7 +14,11 @@ class LanguageState {
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
     );
   }
+
+  @override
+  List<Object?> get props => <Object?>[selectedLanguage];
 }
+
 
 
 
