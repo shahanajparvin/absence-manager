@@ -11,12 +11,3 @@ class ChangeLanguage extends LanguageEvent {
 
   final Language selectedLanguage;
 }
-
-
-class ChangeLanguageWithBackend extends LanguageEvent {
-  final Language selectedLanguage;
-  final bool isLogin;
-
-  const ChangeLanguageWithBackend({required this.selectedLanguage, this.isLogin = false});
-
-}
