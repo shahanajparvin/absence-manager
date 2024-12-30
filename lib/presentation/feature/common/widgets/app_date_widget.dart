@@ -64,6 +64,7 @@ class AppDatePickerField extends StatelessWidget with InputDecorationMixin {
     if (pickedDate != null) {
       final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
       dateController.text = dateFormat.format(pickedDate);
+      onSelect(dateController.text);
     }
   }
 }

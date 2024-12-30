@@ -1,4 +1,5 @@
 import 'package:absence_manager/core/service/filter_handler_service.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable()
