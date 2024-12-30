@@ -13,12 +13,14 @@ class AbsenceListStateWidget extends StatelessWidget {
   final ScrollController scrollController;
   final ValueNotifier<bool> isLoadingNotifier;
   final int itemsPerPage;
+  final FocusNode focusNode;
 
   const AbsenceListStateWidget({
     super.key,
     required this.scrollController,
     required this.isLoadingNotifier,
     required this.itemsPerPage,
+    required this.focusNode,
   });
 
   @override
@@ -30,6 +32,7 @@ class AbsenceListStateWidget extends StatelessWidget {
         } else if (state is AbsenceSuccessState) {
           _fetchDataWithNoScroll(context,state);
           return AbsenceListSuccess(
+            focusNode: focusNode,
             state: state,
             scrollController: scrollController,
             isLoadingNotifier: isLoadingNotifier,
@@ -71,6 +74,7 @@ class AbsenceListSuccess extends StatelessWidget {
   final ScrollController scrollController;
   final ValueNotifier<bool> isLoadingNotifier;
   final int itemsPerPage;
+  final FocusNode focusNode;
 
 
   const AbsenceListSuccess({
@@ -79,6 +83,7 @@ class AbsenceListSuccess extends StatelessWidget {
     required this.scrollController,
     required this.isLoadingNotifier,
     required this.itemsPerPage,
+    required this.focusNode,
   });
 
   @override
@@ -94,7 +99,7 @@ class AbsenceListSuccess extends StatelessWidget {
       child: state.absences.isNotEmpty
           ? Expanded(
         child: AbsenceListView(
-          focusNode: FocusNode(),
+          focusNode:focusNode,
           absences: state.absences,
           hasMorePages: state.hasMorePages,
           scrollController: scrollController,

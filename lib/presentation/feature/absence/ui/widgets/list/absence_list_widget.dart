@@ -61,6 +61,7 @@ class _AbsenceListWidgetState extends State<AbsenceListWidget> {
           ),
           Gap(AppHeight.s10),
           AbsenceListStateWidget(
+            focusNode: focusNode,
             scrollController: scrollController,
             isLoadingNotifier: isLoadingNotifier,
             itemsPerPage: _itemsPerPage,
