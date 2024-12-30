@@ -31,14 +31,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 947),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (_, __) => BlocProvider<LanguageBloc>(
-        create: (_) => LanguageBloc(appSettings.getSelectedLanguage()),
-        child: const AppMaterial(),
-      ),
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        if (constraints.maxWidth != 0&&constraints.maxHeight!=0) {
+          return ScreenUtilInit(
+            designSize: const Size(375, 947),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            builder: (_, __) => BlocProvider<LanguageBloc>(
+              create: (_) => LanguageBloc(appSettings.getSelectedLanguage()),
+              child: const AppMaterial(),
+            ),
+          );
+        }
+        return const SizedBox();
+      },
     );
   }
 }
