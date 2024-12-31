@@ -21,9 +21,9 @@ class ApiImpl implements Api {
 
   Future<List<dynamic>?> readJsonFile(String path) async {
     try {
-      String content = await rootBundle.loadString(path);
-      Map<String, dynamic> data = jsonDecode(content);
-      return data['payload'];
+      final String content = await rootBundle.loadString(path);
+      final Map<String, dynamic> data = jsonDecode(content) as Map<String, dynamic>;
+      return data['payload'] as List<dynamic>;
     } catch (error) {
       return null;
     }
