@@ -6,7 +6,7 @@ class AbsenceStatusService {
   static final Map<String, String Function()> _statusMappings = <String, String Function()>{
     'confirmed': () => AppContext.context.text.confirm,
     'rejected': () => AppContext.context.text.reject,
-    'pending': () => AppContext.context.text.pending,
+    'requested': () => AppContext.context.text.requested,
   };
 
   static String getReadableStatusName(String inputValue) {

@@ -39,7 +39,7 @@ class AbsenceListViewAdapter {
     } else if (absence.rejectedAt != null) {
       return 'rejected';
     } else {
-      return 'pending';
+      return 'requested';
     }
   }
 

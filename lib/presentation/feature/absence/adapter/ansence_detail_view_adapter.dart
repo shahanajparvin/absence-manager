@@ -30,7 +30,7 @@ class AbsenceDetailViewAdapter {
     } else if (absence.rejectedAt != null) {
       return 'Rejected';
     } else {
-      return 'Pending';
+      return 'Requested';
     }
   }
 

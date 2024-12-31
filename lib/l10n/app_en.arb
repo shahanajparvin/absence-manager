@@ -6,7 +6,7 @@
   "ended_on" : "Ended on",
   "confirm" : "Confirmed",
   "reject" : "Rejected",
-  "pending" : "Pending",
+  "requested" : "Requested",
   "sickness" : "Sickness",
   "vacation" : "Vacation",
   "general_error_message" : "Something went wrong!",

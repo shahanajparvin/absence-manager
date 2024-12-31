@@ -7,7 +7,7 @@
   "ended_on": "Beendet am",
   "confirm": "Bestätigt",
   "reject": "Abgelehnt",
-  "pending": "Ausstehend",
+  "requested" : "Angefordert",
   "sickness": "Krankheit",
   "vacation": "Urlaub",
   "general_error_message" : "Etwas ist schiefgelaufen!",
