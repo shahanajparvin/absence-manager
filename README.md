@@ -15,6 +15,19 @@ A Flutter application to manage employee absences efficiently. This project impl
     - Status (Requested, Confirmed, or Rejected)
     - Admitter note (if available)
 
+- **Filter**:
+    - Filter by Type: Allows for the filtering of absences based on their type (e.g., vacation or sick leave).
+    - Filter by Date: Enables filtering absences by start date or end date.
+ 
+- **Pagination**:
+    - Load and navigate through absences 10 at a time. The list initially shows the first 10 absences, with the ability to paginate through the remaining entries.
+      
+- **Error Handling**:
+    - Displays user-friendly error messages if the JSON file cannot be retrieved or contains invalid data.
+      
+- **Search Functionality**:
+    - Find absences by entering keywords (e.g., member name).
+
 - **Localization**: Multi-language support using the intl package.
 
 - **State Management**: Implemented using Flutter BLoC (with events).
@@ -43,11 +56,19 @@ The codebase follows Clean Architecture with the following layers:
 
 - Core: Shared utilities, localization, and constants.
 
+ ##  Why I Used Clean Architecture
+
+I chose Clean Architecture to keep the app modular, easy to maintain, and ready for future updates. It splits the app into clear layers like Domain, Data, and Presentation, which makes it easier to add new features, fix bugs, or change things without breaking the app.
+
+For example, I can easily add features like iCal generation or advanced filters later because the code is well-organized. It’s also easy to test the logic separately from the UI.
+
+Overall, this architecture makes the app more flexible and ready for growth, which is why I used it.
+
 ## Dependencies
 
 - State Management: flutter_bloc
 
-- Dependency Injection: get_it
+- Dependency Injection: injector
 
 - Code Generation: freezed, build_runner
 
@@ -69,7 +90,12 @@ The codebase follows Clean Architecture with the following layers:
 
 ### Unit Tests
 
-- Implemented using flutter_test to ensure the robustness of the business logic.
+ * Implemented using flutter_test to ensure the robustness of the business logic.
+ * Converted unit tests to cover the following layers:
+ *  Data Layer: Tests for data parsing, fetching, and handling from the JSON file.
+ * Domain Layer: Tests for use cases to validate business logic and edge cases.
+ * Repository: Tests to ensure proper communication between the data layer and the domain layer.
+ * Presentation Layer: Comprehensive tests for all BLoC classes, events, and states to validate UI interactions and state transitions.
 
 Run tests:
 
